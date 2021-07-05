@@ -1,0 +1,12 @@
+#!/usr/bin/with-contenv bash
+
+set -o errexit -o nounset -o pipefail
+
+# https://github.com/linuxserver/docker-swag/blob/master/root/defaults/dns-conf/cloudflare.ini
+
+echo "Writing Cloudflare config file"
+
+cat << EOF > /config/dns-conf/cloudflare.ini
+dns_cloudflare_email = $CLOUDFLARE_EMAIL
+dns_cloudflare_api_key = $CLOUDFLARE_API_KEY
+EOF
