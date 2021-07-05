@@ -1,0 +1,32 @@
+version: "3.4"
+
+services:
+  bcoem:
+    image: ghcr.io/linuxserver/swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      # SWAG
+      DNSPLUGIN: "${DNSPLUGIN}"
+      PGID: 1000
+      PUID: 1000
+      SUBDOMAINS: "${SUBDOMAINS}"
+      TZ: Australia/Melbourne
+      URL: "${URL}"
+      VALIDATION: "${VALIDATION}"
+      # SWAG - customised
+      CLOUDFLARE_API_KEY: "${CLOUDFLARE_API_KEY}"
+      CLOUDFLARE_EMAIL: "${CLOUDFLARE_EMAIL}"
+      # BCOEM
+      BCOEM_SETUP_FREE_ACCESS: "false"
+      DB_DATABASE: bcoem
+      DB_HOST: db
+      DB_PASSWORD: bcoem
+      DB_USER: bcoem
+  db:
+    image: mariadb:10.5
+    environment:
+      MARIADB_DATABASE: bcoem
+      MARIADB_PASSWORD: bcoem
+      MARIADB_ROOT_PASSWORD: root-password
+      MARIADB_USER: bcoem
