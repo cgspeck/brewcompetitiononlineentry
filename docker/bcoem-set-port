@@ -1,0 +1,21 @@
+#! /bin/bash -ex
+
+
+echo "BCOE&M SET PORT"
+echo "==============="
+
+conf_file=/var/www/html/site/config.php
+
+if [[ "${PORT}" -ne 80 ]]; then
+    # $base_url .= $_SERVER['SERVER_NAME'].$sub_directory."/";
+    # ->
+    # $base_url .= $_SERVER['SERVER_NAME'].":".$PORT.$sub_directory."/";
+    replace="\$base_url .= \$_SERVER['SERVER_NAME'].':'.'${PORT}'.\$sub_directory.'\/';"
+    # Too difficult to selectively target what we need here because of mixture of
+    # single quotes, double quotes and dollar signs.
+    sed -ri -e "191s/.*/$replace/g" "$conf_file"
+fi
+
+tail $conf_file -n 20
+
+echo "=============="

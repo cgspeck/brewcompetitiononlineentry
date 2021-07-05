@@ -1,0 +1,14 @@
+#! /bin/bash -e
+
+
+echo "BCOE&M SET DB"
+echo "=============="
+
+conf_file=/var/www/html/site/config.php
+
+sed -ri -e "s/\\\$hostname = \"localhost\";/\\\$hostname = \"\\${DB_HOST}\";/g" "$conf_file"
+sed -ri -e "s/\\\$username = \"\";/\\\$username = \"\\${DB_USER}\";/g" "$conf_file"
+sed -ri -e "s/\\\$password = '';/\\\$password = '\\${DB_PASSWORD}';/g" "$conf_file"
+sed -ri -e "s/\\\$database = \"\";/\\\$database = \"\\${DB_DATABASE}\";/g" "$conf_file"
+
+echo "=============="
