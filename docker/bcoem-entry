@@ -1,0 +1,15 @@
+#! /bin/bash -e
+
+echo "BCOE&M docker entrypoint"
+echo "========================"
+
+bcoem-configure
+bcoem-patch
+bcoem-set-db
+bcoem-set-port
+bcoem-set-ssl
+
+echo "========================"
+echo "Starting Apache..."
+
+exec /usr/local/bin/apache2-foreground

@@ -1,0 +1,13 @@
+#! /bin/bash -e
+
+echo "BCOE&M CONFIGURE"
+echo "================"
+
+conf_file=/var/www/html/site/config.php
+
+if [[ "${BCOEM_SETUP_FREE_ACCESS}" ]]; then
+    echo "Enabling free access"
+    sed -ri -e "s/\\\$setup_free_access =  FALSE;/\\\$setup_free_access = TRUE;/g" "$conf_file"
+fi
+
+echo "================"
