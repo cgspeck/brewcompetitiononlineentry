@@ -9,7 +9,16 @@ ENV DB_USER=set-me
 ENV CLOUDFLARE_API_KEY=set-me
 ENV CLOUDFLARE_EMAIL=set-me
 
+RUN apk add --no-cache php7-mysqli
+
+COPY . /config/www/
+RUN mv /config/www/docker/* /usr/local/bin/ && \
+    rm -rf /config/www/docker && \
+    mkdir -p /config/www/classes/htmlpurifier/standalone/HTMLPurifier/DefinitionCache/Serializer && \
+    chmod 777 /config/www/classes/htmlpurifier/standalone/HTMLPurifier/DefinitionCache/Serializer
+
 COPY ./docker/swag /
+
 # ENV ENABLE_SSL=false
 # ENV PORT=9000
 
