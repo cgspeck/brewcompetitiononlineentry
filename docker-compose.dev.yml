@@ -9,7 +9,7 @@ services:
     ports:
       - 9000:80
     environment:
-      BCOEM_SETUP_FREE_ACCESS: "true"
+      BCOEM_SETUP_FREE_ACCESS: "false"
       DB_DATABASE: bcoem
       DB_HOST: db
       DB_PASSWORD: bcoem
