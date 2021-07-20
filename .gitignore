@@ -45,5 +45,3 @@ lang/es/*
 site/config.mail.php
 js_source/*
 js_unused/*
-.*.env
-scratch
