@@ -9,15 +9,21 @@ services:
     ports:
       - 9000:80
     environment:
-      BCOEM_SETUP_FREE_ACCESS: "true"
-      DB_DATABASE: bcoem
-      DB_HOST: db
-      DB_PASSWORD: bcoem
-      DB_USER: bcoem
+      DB_DATABASE: "${DB_DATABASE-bcoem}"
+      DB_HOST: "${DB_HOST-db}"
+      DB_PASSWORD: "${DB_PASSWORD-bcoem}"
+      DB_USER: "${DB_USER-bcoem}"
+      ENABLE_SSL: "${ENABLE_SSL-false}"
+      PORT: "${PORT-9000}"
+      SETUP_FREE_ACCESS: "${SETUP_FREE_ACCESS-false}"
+    volumes:
+      - ./:/var/www/html
   db:
     image: mariadb:10.5
     environment:
-      MARIADB_DATABASE: bcoem
-      MARIADB_PASSWORD: bcoem
-      MARIADB_ROOT_PASSWORD: root-password
-      MARIADB_USER: bcoem
+      MARIADB_DATABASE: "${DB_DATABASE-bcoem}"
+      MARIADB_PASSWORD: "${DB_PASSWORD-bcoem}"
+      MARIADB_ROOT_PASSWORD: "${DB_ROOT_PASSWORD-root-password}"
+      MARIADB_USER: "${DB_USER-bcoem}"
+    volumes:
+      - ./data/mysql:/var/lib/mysql

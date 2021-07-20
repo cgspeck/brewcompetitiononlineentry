@@ -1,9 +1,0 @@
-#! /bin/bash -e
-
-echo "BCOE&M PATCH"
-echo "================"
-
-# replace='				%s, %s)",'
-# sed -ri -e "391s/.*/$replace/g" /var/www/html/includes/process/process_brewer.inc.php
-
-echo "=============="
