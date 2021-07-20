@@ -5,7 +5,10 @@ echo "=============="
 
 if [[ "${ENABLE_SSL}" == false ]]; then
     echo "Disabling SSL"
-    sed -ri -e 's/RewriteRule (.*) https:\/\/%\{HTTP_HOST\}%\{REQUEST_URI\}/#RewriteRule (.*) https:\/\/%\{HTTP_HOST\}%\{REQUEST_URI\}/g' /var/www/html/.htaccess
+    sed -ri -e 's/^RewriteRule (.*) https:\/\/%\{HTTP_HOST\}%\{REQUEST_URI\}/#RewriteRule (.*) https:\/\/%\{HTTP_HOST\}%\{REQUEST_URI\}/g' /var/www/html/.htaccess
+else
+    echo "Enabling SSL"
+    sed -ri -e 's/^#RewriteRule (.*) https:\/\/%\{HTTP_HOST\}%\{REQUEST_URI\}/RewriteRule (.*) https:\/\/%\{HTTP_HOST\}%\{REQUEST_URI\}/g' /var/www/html/.htaccess
 fi
 
 head /var/www/html/.htaccess

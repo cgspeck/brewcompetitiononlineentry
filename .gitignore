@@ -1,11 +1,14 @@
+
 admin/error_log
 .config/*
 config_for_test.php
 css/aha.css
 css/images/Thumbs.db
+data
 *.db
 .DS_Store
 .*.env
+.envrc
 eval/*
 .github/*
 iframe.html
