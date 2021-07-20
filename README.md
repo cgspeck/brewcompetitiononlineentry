@@ -27,9 +27,11 @@ After configuration to your environment, installation is a breeze via the online
 There are times when the online setup encounters issues that prevent the installation from successfully completing. That's why there's a [Fallback Installation](https://brewcompetition.com/install-instructions#fallback) method. For those experiencing any issues related to the initial browser-based setup, the bcoem_baseline_2.3.X.sql document is available in the package's /sql/ folder. This document contains the necessary database structure and dummy data for a new installation that can be installed manually via phpMyAdmin or shell access. Be sure to follow the directions in the document **BEFORE** use.
 
 ## Issue Reporting and Bug Fixes
-Many bugs and issues reported to this repository are corrected before an official release is available. Before reporting a bug, be sure to check the [Issues](https://github.com/geoffhumphrey/brewcompetitiononlineentry/issues) list to see if it has been addressed already. If it has, chances are the latest commit package contains code to fix the issue. Keep an eye out for the [*fixed in latest master commit*](https://github.com/geoffhumphrey/brewcompetitiononlineentry/issues?q=is%3Aissue+is%3Aopen+label%3A%22in+latest+master+commit%22) tag. Needless to say, however, the master and other branch commits housed here in the repository are **NOT FOR PRODUCTION**! Bugs may be present.
+
+Many bugs and issues reported to this repository are corrected before an official release is available. Before reporting a bug, be sure to check the [Issues](https://github.com/geoffhumphrey/brewcompetitiononlineentry/issues) list to see if it has been addressed already. If it has, chances are the latest commit package contains code to fix the issue. Keep an eye out for the [_fixed in latest master commit_](https://github.com/geoffhumphrey/brewcompetitiononlineentry/issues?q=is%3Aissue+is%3Aopen+label%3A%22in+latest+master+commit%22) tag. Needless to say, however, the master and other branch commits housed here in the repository are **NOT FOR PRODUCTION**! Bugs may be present.
 
 ## Help and Resources
+
 Help is integrated into the application. Just look for the question-mark icon in the main navigation.
 
 There is also a growing number of instructive resources available on the [companion website](https://www.brewcompetition.com) for various options, including the following:
@@ -44,5 +46,10 @@ There is also a growing number of instructive resources available on the [compan
 - [Barcode or QR Code Entry Check-in](https://brewcompetition.com/barcode-check-in) - utilize the barcode/QR code enabled bottle labels to efficiently check-in entries
 - [Implement PayPal Instant Payment Notifications](https://brewcompetition.com/paypal-ipn) - receive and process PayPal payment data to update entrant payment status instantly
 
+## Docker
+
+Want to get developing on this quickly? Check out the [docker README](docker/README.md).
+
 ## Wanna Help?
+
 Fork and help out with the development!

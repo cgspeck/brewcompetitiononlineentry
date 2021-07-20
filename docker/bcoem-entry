@@ -4,7 +4,6 @@ echo "BCOE&M docker entrypoint"
 echo "========================"
 
 bcoem-configure
-bcoem-patch
 bcoem-set-db
 bcoem-set-port
 bcoem-set-ssl

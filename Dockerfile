@@ -1,12 +1,12 @@
 FROM php:7.2-apache
 
-ENV BCOEM_SETUP_FREE_ACCESS=false
 ENV DB_DATABASE=set-me
 ENV DB_HOST=set-me
 ENV DB_PASSWORD=set-me
 ENV DB_USER=set-me
 ENV ENABLE_SSL=false
 ENV PORT=9000
+ENV SETUP_FREE_ACCESS=false
 
 # Configure Apache
 RUN cp /etc/apache2/mods-available/headers.load /etc/apache2/mods-enabled

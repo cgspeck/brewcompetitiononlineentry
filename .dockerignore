@@ -1,3 +1,7 @@
 .git
 Makefile
 scratch
+data
+.envrc
+.github/*
+.config/*
