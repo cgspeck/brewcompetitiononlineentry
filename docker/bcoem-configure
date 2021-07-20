@@ -5,9 +5,12 @@ echo "================"
 
 conf_file=/var/www/html/site/config.php
 
-if [[ "${BCOEM_SETUP_FREE_ACCESS}" ]]; then
+if [[ "${SETUP_FREE_ACCESS}" == true ]]; then
     echo "Enabling free access"
     sed -ri -e "s/\\\$setup_free_access =  FALSE;/\\\$setup_free_access = TRUE;/g" "$conf_file"
+else
+    echo "Disabling free access"
+    sed -ri -e "s/\\\$setup_free_access =  TRUE;/\\\$setup_free_access = FALSE;/g" "$conf_file"
 fi
 
 echo "================"
