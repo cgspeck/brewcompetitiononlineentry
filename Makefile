@@ -9,13 +9,8 @@ docker:
 		up
 
 swag-db:
-	-docker-compose \
-		-f docker-compose.swag2.db.yml \
-		down
-	docker-compose \
-		-f docker-compose.swag2.db.yml \
-		build
 	docker-compose \
 		-f docker-compose.swag2.db.yml \
 		--env-file .swag.env \
-		up
+		up \
+		--build
