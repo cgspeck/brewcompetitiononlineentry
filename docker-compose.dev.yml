@@ -20,6 +20,8 @@ services:
       - ./:/var/www/html
   db:
     image: mariadb:10.5
+    ports:
+      - 3306:3306
     environment:
       MARIADB_DATABASE: "${DB_DATABASE-bcoem}"
       MARIADB_PASSWORD: "${DB_PASSWORD-bcoem}"
