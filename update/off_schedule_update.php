@@ -2187,6 +2187,62 @@ $result = mysqli_query($connection,$updateSQL);
 $output .= "<li>Corrected British Golden Ale name.</li>";
 
 
+/**
+*
+* Stripe support
+*
+*/
+
+if (!check_update("prefsStripeEnabled", $prefix . "preferences")) {
+	$updateSQL = sprintf("ALTER TABLE `%s` ADD `prefsStripeEnabled` TINYINT(1) NULL DEFAULT NULL;", $prefix . "preferences");
+	mysqli_select_db($connection, $database);
+	mysqli_real_escape_string($connection, $updateSQL);
+	$result = mysqli_query($connection, $updateSQL);
+
+	$updateSQL = sprintf("UPDATE `%s` SET prefsStripeEnabled='0';", $prefix . "preferences");
+	mysqli_real_escape_string($connection, $updateSQL);
+	$result = mysqli_query($connection, $updateSQL) or die(mysqli_error($connection));
+}
+
+$output .= "<li>Added column to enable or disable Stripe.</li>";
+
+if (!check_update("prefsStripeTestPublicKey", $prefix . "preferences")) {
+	$updateSQL = sprintf("ALTER TABLE `%s` ADD `prefsStripeTestPublicKey` VARCHAR(255) NULL DEFAULT NULL;", $prefix . "preferences");
+	mysqli_select_db($connection, $database);
+	mysqli_real_escape_string($connection, $updateSQL);
+	$result = mysqli_query($connection, $updateSQL);
+}
+
+$output .= "<li>Added column to store Stripe test public key.</li>";
+
+if (!check_update("prefsStripeTestPrivateKey", $prefix . "preferences")) {
+	$updateSQL = sprintf("ALTER TABLE `%s` ADD `prefsStripeTestPrivateKey` VARCHAR(255) NULL DEFAULT NULL;", $prefix . "preferences");
+	mysqli_select_db($connection, $database);
+	mysqli_real_escape_string($connection, $updateSQL);
+	$result = mysqli_query($connection, $updateSQL);
+}
+
+$output .= "<li>Added column to store Stripe test private key.</li>";
+
+if (!check_update("prefsStripeLivePublicKey", $prefix . "preferences")) {
+	$updateSQL = sprintf("ALTER TABLE `%s` ADD `prefsStripeLivePublicKey` VARCHAR(255) NULL DEFAULT NULL;", $prefix . "preferences");
+	mysqli_select_db($connection, $database);
+	mysqli_real_escape_string($connection, $updateSQL);
+	$result = mysqli_query($connection, $updateSQL);
+}
+
+$output .= "<li>Added column to store Stripe live public key.</li>";
+
+if (!check_update("prefsStripeLivePrivateKey", $prefix . "preferences")) {
+	$updateSQL = sprintf("ALTER TABLE `%s` ADD `prefsStripeLivePrivateKey` VARCHAR(255) NULL DEFAULT NULL;", $prefix . "preferences");
+	mysqli_select_db($connection, $database);
+	mysqli_real_escape_string($connection, $updateSQL);
+	$result = mysqli_query($connection, $updateSQL);
+}
+
+$output .= "<li>Added column to store Stripe live private key.</li>";
+
+
 /** 
  * --- Future Release ---
  * Finally, after all updates have been implemented, 
