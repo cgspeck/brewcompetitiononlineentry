@@ -227,6 +227,10 @@ if ($setup_success) {
 		$totalRows_prefs_check = mysqli_num_rows($prefs_check);
 
 		if ($totalRows_prefs_check == 0) {
+			/*
+			TODO: 	add defaults for prefsStripeEnabled, prefsStripeTestPublicKey, prefsStripeTestPrivateKey,
+					prefsStripeLivePublicKey and prefsStripeLivePrivateKey
+			*/
 
 			$update_table = $prefix."preferences";
 			$data = array(
