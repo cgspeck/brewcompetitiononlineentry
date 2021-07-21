@@ -206,6 +206,38 @@ $(document).ready(function(){
         }
     });
 
+    <?php if ($row_prefs['prefsStripeEnabled']) { ?>
+        $("#stripe-payment").show("fast");
+        $("input[name='prefsStripeTestPublicKey']").prop("required", true);
+        $("input[name='prefsStripeTestPrivateKey']").prop("required", true);
+        $("input[name='prefsStripeLivePublicKey']").prop("required", true);
+        $("input[name='prefsStripeLivePrivateKey']").prop("required", true);
+    <?php } else { ?>
+        $("#stripe-payment").hide("fast");
+        $("input[name='prefsStripeTestPublicKey']").prop("required", false);
+        $("input[name='prefsStripeTestPrivateKey']").prop("required", false);
+        $("input[name='prefsStripeLivePublicKey']").prop("required", false);
+        $("input[name='prefsStripeLivePrivateKey']").prop("required", false);
+    <?php } ?>
+
+    $("input[name$='prefsStripeEnabled']").click(function() {
+        if ($(this).val() == "Y") {
+            $("#stripe-payment").show("fast");
+            $("input[name='prefsStripeTestPublicKey']").prop("required", true);
+            $("input[name='prefsStripeTestPrivateKey']").prop("required", true);
+            $("input[name='prefsStripeLivePublicKey']").prop("required", true);
+            $("input[name='prefsStripeLivePrivateKey']").prop("required", true);
+        }
+        else {
+            $("#stripe-payment").hide("fast");
+            $("input[name='prefsStripeTestPublicKey']").prop("required", false);
+            $("input[name='prefsStripeTestPrivateKey']").prop("required", false);
+            $("input[name='prefsStripeLivePublicKey']").prop("required", false);
+            $("input[name='prefsStripeLivePrivateKey']").prop("required", false);
+        }
+    });
+
+
     $("#prefsStyleSet").change(function() {
 
         if (entries_present > 0) {
@@ -1686,6 +1718,54 @@ $(document).ready(function(){
         </div>
     </div><!-- ./modal -->
 </div>
+
+<div class="form-group">
+    <!-- Form Group Radio INLINE -->
+    <label for="prefsStripeEnabled" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 control-label">Stripe for Payment</label>
+    <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+        <div class="input-group">
+            <!-- Input Here -->
+            <label class="radio-inline">
+                <input type="radio" name="prefsStripeEnabled" value="Y" id="prefsStripeEnabled_0" <?php if ($row_prefs['prefsStripeEnabled'] == true) echo "CHECKED"; ?> />Enable
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="prefsStripeEnabled" value="N" id="prefsStripeEnabled_1" <?php if ($row_prefs['prefsStripeEnabled'] == false) echo "CHECKED";
+                                                                                                    elseif ($section == "step3") echo "CHECKED"; ?> />
+                Disable</label>
+        </div>
+    </div>
+</div><!-- ./Form Group -->
+<div id="stripe-payment">
+    <div class="form-group">
+        <label for="prefsStripeTestPublicKey" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 control-label">Stripe Test Publishable Key</label>
+        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+            <!-- Input Here -->
+            <input class="form-control" id="prefsStripeTestPublicKey" name="prefsStripeTestPublicKey" type="text" value="<?php echo $row_prefs['prefsStripeTestPublicKey']; ?>" data-error="Stripe test publishable key." placeholder="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="prefsStripeTestPrivateKey" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 control-label">Stripe Test Secret Key</label>
+        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+            <!-- Input Here -->
+            <input class="form-control" id="prefsStripeTestPrivateKey" name="prefsStripeTestPrivateKey" type="text" value="<?php echo $row_prefs['prefsStripeTestPrivateKey']; ?>" data-error="Stripe test secret key." placeholder="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="prefsStripeLivePublicKey" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 control-label">Stripe live Publishable Key</label>
+        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+            <!-- Input Here -->
+            <input class="form-control" id="prefsStripeLivePublicKey" name="prefsStripeLivePublicKey" type="text" value="<?php echo $row_prefs['prefsStripeLivePublicKey']; ?>" data-error="Stripe live publishable key." placeholder="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="prefsStripeLivePrivateKey" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 control-label">Stripe Live Secret Key</label>
+        <div class="col-lg-6 col-md-6 col-sm-8 col-xs-12">
+            <!-- Input Here -->
+            <input class="form-control" id="prefsStripeLivePrivateKey" name="prefsStripeLivePrivateKey" type="text" value="<?php echo $row_prefs['prefsStripeLivePrivateKey']; ?>" data-error="Stripe live secret key." placeholder="">
+        </div>
+    </div>
+</div>
+
 <h3>Sponsors</h3>
 <div class="form-group"><!-- Form Group Radio INLINE -->
     <label for="prefsSponsors" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 control-label">Sponsor Display</label>
