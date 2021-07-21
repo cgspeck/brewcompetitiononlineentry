@@ -226,6 +226,10 @@ if ($setup_success) {
 		$totalRows_prefs_check = mysqli_num_rows($prefs_check);
 
 		if ($totalRows_prefs_check == 0) {
+			/*
+			TODO: 	add defaults for prefsStripeEnabled, prefsStripeTestPublicKey, prefsStripeTestPrivateKey,
+					prefsStripeLivePublicKey and prefsStripeLivePrivateKey
+			*/
 
 			$sql = sprintf("INSERT INTO `%s` (`id`, `prefsTemp`, `prefsWeight1`, `prefsWeight2`, `prefsLiquid1`, `prefsLiquid2`, `prefsPaypal`, `prefsPaypalAccount`, `prefsPaypalIPN`, `prefsCurrency`, `prefsCash`, `prefsCheck`, `prefsCheckPayee`, `prefsTransFee`, `prefsCAPTCHA`, `prefsGoogleAccount`, `prefsSponsors`, `prefsSponsorLogos`, `prefsSponsorLogoSize`, `prefsCompLogoSize`, `prefsDisplayWinners`, `prefsWinnerDelay`, `prefsWinnerMethod`, `prefsDisplaySpecial`, `prefsBOSMead`, `prefsBOSCider`, `prefsEntryForm`, `prefsRecordLimit`, `prefsRecordPaging`, `prefsProEdition`, `prefsTheme`, `prefsDateFormat`, `prefsContact`, `prefsTimeZone`, `prefsEntryLimit`, `prefsTimeFormat`, `prefsUserEntryLimit`, `prefsUserSubCatLimit`, `prefsUSCLEx`, `prefsUSCLExLimit`, `prefsPayToPrint`, `prefsHideRecipe`, `prefsUseMods`, `prefsSEF`, `prefsSpecialCharLimit`, `prefsStyleSet`, `prefsAutoPurge`, `prefsEntryLimitPaid`, `prefsEmailRegConfirm`, `prefsEmailCC`, `prefsShipping`, `prefsDropOff`, `prefsLanguage`, `prefsSpecific`, `prefsShowBestBrewer`, `prefsBestBrewerTitle`, `prefsFirstPlacePts`, `prefsSecondPlacePts`, `prefsThirdPlacePts`, `prefsFourthPlacePts`, `prefsHMPts`, `prefsTieBreakRule1`, `prefsTieBreakRule2`, `prefsTieBreakRule3`, `prefsTieBreakRule4`, `prefsTieBreakRule5`, `prefsTieBreakRule6`, `prefsShowBestClub`, `prefsBestClubTitle`, `prefsBestUseBOS`, `prefsEval`) VALUES (1, 'Fahrenheit', 'ounces', 'pounds', 'ounces', 'gallons', 'N', NULL, 0, '$', 'N', 'N', NULL, 'Y', 0, '|', 'N', 'N', '250', '300', 'Y', '1616974200', 0, 'J', 'N', 'N', '5', 9999, 150, 0, 'bruxellensis', '1', 'Y', -7.001, NULL, 0, NULL, NULL, NULL, NULL, 'N', 'Y', 'N', 'N', 200, 'BJCP2015', 0, NULL, 0, 1, 1, 1, 'en-US', 1, 0, NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL, 0, NULL, 0, 1);",$preferences_db_table);
 			mysqli_select_db($connection,$database);

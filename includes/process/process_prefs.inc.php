@@ -44,6 +44,13 @@ if ((isset($_SERVER['HTTP_REFERER'])) && (((isset($_SESSION['loginUsername'])) &
 
 		prefsPaypal,
 		prefsPaypalAccount,
+
+		prefsStripeEnabled,
+		prefsStripeTestPublicKey,
+		prefsStripeTestPrivateKey,
+		prefsStripeLivePublicKey,
+		prefsStripeLivePrivateKey,
+
 		prefsCurrency,
 		prefsCash,
 		prefsCheck,
@@ -119,7 +126,9 @@ if ((isset($_SERVER['HTTP_REFERER'])) && (((isset($_SESSION['loginUsername'])) &
 
 		) VALUES (
 		%s, %s, %s, %s, %s,
+		%s, %s,
 		%s, %s, %s, %s, %s,
+		%s, %s, %s,
 		%s, %s, %s, %s, %s,
 		%s, %s, %s, %s, %s,
 		%s, %s, %s, %s, %s,
@@ -141,6 +150,13 @@ if ((isset($_SERVER['HTTP_REFERER'])) && (((isset($_SESSION['loginUsername'])) &
 
 			GetSQLValueString(sterilize($_POST['prefsPaypal']), "text"),
 			GetSQLValueString(sterilize($_POST['prefsPaypalAccount']), "text"),
+
+			GetSQLValueString(sterilize($_POST['prefsStripeEnabled']), "text"),
+			GetSQLValueString(sterilize($_POST['prefsStripeTestPublicKey']), "text"),
+			GetSQLValueString(sterilize($_POST['prefsStripeTestPrivateKey']), "text"),
+			GetSQLValueString(sterilize($_POST['prefsStripeLivePublicKey']), "text"),
+			GetSQLValueString(sterilize($_POST['prefsStripeLivePrivateKey']), "text"),
+
 			GetSQLValueString(sterilize($_POST['prefsCurrency']), "text"),
 			GetSQLValueString(sterilize($_POST['prefsCash']), "text"),
 			GetSQLValueString(sterilize($_POST['prefsCheck']), "text"),
@@ -327,6 +343,13 @@ if ((isset($_SERVER['HTTP_REFERER'])) && (((isset($_SESSION['loginUsername'])) &
 
 		prefsPaypal=%s,
 		prefsPaypalAccount=%s,
+
+		prefsStripeEnabled=%s,
+		prefsStripeTestPublicKey=%s,
+		prefsStripeTestPrivateKey=%s,
+		prefsStripeLivePublicKey=%s,
+		prefsStripeLivePrivateKey=%s,
+
 		prefsCurrency=%s,
 		prefsCash=%s,
 		prefsCheck=%s,
@@ -407,6 +430,13 @@ if ((isset($_SERVER['HTTP_REFERER'])) && (((isset($_SESSION['loginUsername'])) &
 
 			GetSQLValueString(sterilize($_POST['prefsPaypal']), "text"),
 			GetSQLValueString(sterilize($_POST['prefsPaypalAccount']), "text"),
+
+			GetSQLValueString(sterilize($_POST['prefsStripeEnabled']), "text"),
+			GetSQLValueString(sterilize($_POST['prefsStripeTestPublicKey']), "text"),
+			GetSQLValueString(sterilize($_POST['prefsStripeTestPrivateKey']), "text"),
+			GetSQLValueString(sterilize($_POST['prefsStripeLivePublicKey']), "text"),
+			GetSQLValueString(sterilize($_POST['prefsStripeLivePrivateKey']), "text"),
+
 			GetSQLValueString(sterilize($_POST['prefsCurrency']), "text"),
 			GetSQLValueString(sterilize($_POST['prefsCash']), "text"),
 			GetSQLValueString(sterilize($_POST['prefsCheck']), "text"),
