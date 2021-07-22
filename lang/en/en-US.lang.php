@@ -963,6 +963,7 @@ $pay_text_026 = "You cannot pay for your entries because one or more of your ent
 $pay_text_027 = "Select <em>My Account</em> above to review your unconfirmed entries.";
 $pay_text_028 = "You have unconfirmed entries that are <em>not</em> reflected in your fee totals below.";
 $pay_text_029 = "Please go to your entry list to confirm all your entry data. Unconfirmed entries may be deleted from the system without warning.";
+$pay_text_030 = "Click the <em>Pay with Stripe</em> button below to pay online.";
 
 /**
  * ------------------------------------------------------------------------
@@ -1288,6 +1289,7 @@ $label_or = "Or";
 $label_admin_payments = "Payments";
 $label_payer = "Payer";
 $label_pay_with_paypal = "Pay with PayPal";
+$label_pay_with_stripe = "Pay with Stripe";
 $label_submit = "Submit";
 $label_id_verification_question = "ID Verification Question";
 $label_id_verification_answer = "ID Verification Answer";
@@ -1370,6 +1372,7 @@ $pay_text_030 = "By selecting the &quot;I Understand&quot; button below, you wil
 $pay_text_031 = "About to Leave this Site";
 $pay_text_032 = "No payment is necessary. Thank you!";
 $pay_text_033 = "You have unpaid entries. Select or tap to pay for your entries.";
+$pay_text_035 = "By clicking the &quot;Pay with Stripe&quot; button below, you will be directed to Stripe to make your payment. Once you have <strong>completed</strong> your payment, Stripe will redirect you back to this site and will email you a receipt for the transaction. <strong>If your payment was successful, your paid status will be updated automatically. Please note that you may need wait a few minutes for the payment status to be updated.</strong> Be sure to refresh the pay page or access your entries list.";
 
 $register_text_035 = "The information you provide beyond your organization's name is strictly for record-keeping and contact purposes.";
 $register_text_036 = "A condition of entry into the competition is providing this information, including a contact person's email address and phone number. Your organization's name may be displayed should one of your entries place, but no other information will be made public.";
@@ -1383,6 +1386,7 @@ $register_text_043 = "Please do not reply to this email as it is automatically g
 $register_text_044 = "Please provide an organization name.";
 $register_text_045 = "Provide a brewery name, brewpub name, etc. Be sure to check the competition information for types of beverages accepted.";
 $register_text_046 = "For U.S. organizations only.";
+
 $user_text_004 = "Be sure to use upper and lower case letters, numbers, and special characters for a stronger password.";
 $user_text_005 = "Your current email address is";
 
@@ -1559,9 +1563,9 @@ $label_launch_pres = "Launch Awards Presentation";
 $label_entrants = "Entrants";
 $label_judging_dashboard = "Judging Dashboard";
 $label_table_assignments = "Table Assignments";
-$label_table = "Table"; 
+$label_table = "Table";
 $label_edit = "Edit";
-$label_add = "Add"; 
+$label_add = "Add";
 $label_disabled = "Disabled";
 $label_judging_scoresheet = "Judging Scoresheet";
 $label_checklist_version = "Checklist Version";
@@ -1642,7 +1646,7 @@ $label_ordinal_position = "Ordinal Position in Flight";
 $label_alcoholic = "Alcoholic";
 $descr_alcoholic = "The aroma, flavor, and warming effect of ethanol and higher alcohols. Sometimes described as &quot;hot&quot;.";
 $descr_alcoholic_mead = "The effect of ethanol. Warming. Hot.";
-$label_metallic = "Metallic"; 
+$label_metallic = "Metallic";
 $descr_metallic = "Tinny, coiny, copper, iron, or blood-like flavor.";
 $label_oxidized = "Oxidized";
 $descr_oxidized = "Any one or combination of stale, winy/vinous, cardboard, papery, or sherry-like aromas and flavors. Stale.";
