@@ -38,6 +38,7 @@ Declare all variables empty at the top of the script. Add on later...
 
 	etc., etc., etc.
  * ---------------- END Rebuild Info --------------------- */
+include_once("includes/pay.common.inc.php");
 
 if (TESTING) {
 	if ((isset($_SESSION['prefsPaypalIPN'])) && ($_SESSION['prefsPaypalIPN'] == 1)) $paypal_env = $base_url."includes/process.inc.php?action=paypal";
@@ -51,13 +52,12 @@ else {
 
 $stripe_env = $base_url."includes/process.inc.php?action=stripe";
 
-$bid = $_SESSION['user_id'];
+
 include (DB.'entries.db.php');
 
-$total_entry_fees = total_fees($_SESSION['contestEntryFee'], $_SESSION['contestEntryFee2'], $_SESSION['contestEntryFeeDiscount'], $_SESSION['contestEntryFeeDiscountNum'], $_SESSION['contestEntryCap'], $_SESSION['contestEntryFeePasswordNum'], $bid, $filter, $_SESSION['comp_id']);
-
-$total_paid_entry_fees = total_fees_paid($_SESSION['contestEntryFee'], $_SESSION['contestEntryFee2'], $_SESSION['contestEntryFeeDiscount'], $_SESSION['contestEntryFeeDiscountNum'], $_SESSION['contestEntryCap'], $_SESSION['contestEntryFeePasswordNum'], $bid, $filter, $_SESSION['comp_id']);
-$total_to_pay = $total_entry_fees - $total_paid_entry_fees;
+$total_entry_fees = calculate_total_entry_fees();
+$total_paid_entry_fees = calculate_total_paid_entry_fees();
+$total_to_pay = calculate_total_to_pay();
 $total_not_paid = total_not_paid_brewer($_SESSION['user_id']);
 $unconfirmed = array_sum(entries_unconfirmed($_SESSION['user_id']));
 
@@ -165,10 +165,8 @@ else {
 			 */
 			
 			if ($_SESSION['prefsTransFee'] == "Y") {
-				$fee = number_format((($total_to_pay * .035) + .50), 2, '.', '');
-				$payment_amount = $total_to_pay + $fee;
-			} else {
-				$payment_amount = $total_to_pay;
+				$fee = $calculate_checkout_fees();
+				$payment_amount = $calculate_payment_amount();
 			}
 
 			// Online
@@ -349,4 +347,3 @@ else {
 	else echo $page_info6;
 
 } // end if payment options are not disabled
-?>

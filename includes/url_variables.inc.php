@@ -56,4 +56,3 @@ if (isset($_GET['pg'])) $pg = sterilize($_GET['pg']);
 if (isset($_GET['dir'])) $dir = sterilize($_GET['dir']);
 if (isset($_GET['inserted'])) $inserted = sterilize($_GET['inserted']);
 if (isset($_GET['redirect-url'])) $redirect_url = sterilize($_GET['redirect-url']);
-?>

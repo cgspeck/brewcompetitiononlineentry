@@ -1,5 +1,8 @@
 <?php
-	echo("TODO: create checkout session");
+// include(INCLUDES . 'beerXML/input_beer_xml.inc.php');
+include(INCLUDES . "pay.common.inc.php");
+echo ("TODO: create checkout session");
+echo (calculate_total_to_pay());
 // create the stripe checkout session and redirect
 // PayPal settings
 // $paypal_email = $_POST['business'];
@@ -36,5 +39,3 @@
 
 // // Redirect to PayPal IPN
 // $redirect_go_to = sprintf('location:%s%s',$paypal_url,$query_string);
-
-?>
