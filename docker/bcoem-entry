@@ -9,6 +9,10 @@ bcoem-set-debug
 bcoem-set-port
 bcoem-set-ssl
 
+serializer_dir="/var/www/html/classes/htmlpurifier/standalone/HTMLPurifier/DefinitionCache/Serializer"
+[ ! -d "${serializer_dir}" ] && mkdir -p "${serializer_dir}"
+chmod 777 "${serializer_dir}"
+
 echo "========================"
 echo "Starting Apache..."
 
