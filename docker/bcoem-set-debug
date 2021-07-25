@@ -1,0 +1,18 @@
+#! /bin/bash -e
+
+echo "BCOE&M SET DEBUG"
+echo "=============="
+
+if [[ "${ENABLE_DEBUG}" == false ]]; then
+    echo "Disabling DEBUG"
+    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+    sed -ri -e "s/define\('DEBUG', TRUE\);.*/define\('DEBUG', FALSE\);/g" /var/www/html/paths.php
+    sed -ri -e "s/define\('DEBUG_SESSION_VARS', TRUE\);.*/define\('DEBUG_SESSION_VARS', FALSE\);/g" /var/www/html/paths.php
+else
+    echo "Enabling DEBUG"
+    mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+    sed -ri -e "s/define\('DEBUG', FALSE\);.*/define\('DEBUG', TRUE\);/g" /var/www/html/paths.php
+    sed -ri -e "s/define\('DEBUG_SESSION_VARS', FALSE\);.*/define\('DEBUG_SESSION_VARS', TRUE\);/g" /var/www/html/paths.php
+fi
+
+echo "=============="

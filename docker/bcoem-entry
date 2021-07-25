@@ -5,6 +5,7 @@ echo "========================"
 
 bcoem-configure
 bcoem-set-db
+bcoem-set-debug
 bcoem-set-port
 bcoem-set-ssl
 

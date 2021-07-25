@@ -13,6 +13,7 @@ services:
       DB_HOST: "${DB_HOST-db}"
       DB_PASSWORD: "${DB_PASSWORD-bcoem}"
       DB_USER: "${DB_USER-bcoem}"
+      ENABLE_DEBUG: "true"
       ENABLE_SSL: "${ENABLE_SSL-false}"
       PORT: "${PORT-9000}"
       SETUP_FREE_ACCESS: "${SETUP_FREE_ACCESS-false}"
