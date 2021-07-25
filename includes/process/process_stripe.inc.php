@@ -1,8 +1,41 @@
 <?php
+
+if ($_SESSION['prefsStripeEnabled'] != "Y") {
+    header("HTTP/1.1 303 See Other");
+    header("Location: /index.php?section=pay");
+}
 // include(INCLUDES . 'beerXML/input_beer_xml.inc.php');
+require_once(ROOT . 'vendor/stripe-php-7.91.0/init.php');
 include(INCLUDES . "pay.common.inc.php");
-echo ("TODO: create checkout session");
-echo (calculate_total_to_pay());
+
+
+if (TESTING) {
+    $stripe_sk = $_SESSION['prefsStripeTestPrivateKey'];
+} else {
+    $stripe_sk = $_SESSION['prefsStripeLivePrivateKey'];
+}
+
+
+// echo ("TODO: create checkout session");
+// echo (calculate_total_to_pay());
+\Stripe\Stripe::setApiKey($stripe_sk);
+header('Content-Type: application/json');
+$YOUR_DOMAIN = 'http://localhost:4242';
+
+$checkout_session = \Stripe\Checkout\Session::create([
+    'payment_method_types' => ['card'],
+    'line_items' => [[
+        'name' => "competition entries",
+        'amount' => calculate_total_to_pay() * 100,
+        'currency' => 'aud',
+        'quantity' => 1,
+    ]],
+    'mode' => 'payment',
+    'success_url' => $YOUR_DOMAIN . '/success.html',
+    'cancel_url' => $YOUR_DOMAIN . '/cancel.html',
+]);
+header("HTTP/1.1 303 See Other");
+header("Location: " . $checkout_session->url);
 // create the stripe checkout session and redirect
 // PayPal settings
 // $paypal_email = $_POST['business'];
