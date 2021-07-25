@@ -56,4 +56,3 @@ if (isset($_GET['pg'])) $psort = sterilize($_GET['pg']);
 if (isset($_GET['dir'])) $psort = sterilize($_GET['dir']);
 if (isset($_GET['inserted'])) $psort = sterilize($_GET['inserted']);
 if (isset($_GET['redirect-url'])) $redirect_url = sterilize($_GET['redirect-url']);
-?>
