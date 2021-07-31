@@ -47,6 +47,8 @@ $checkout_session = \Stripe\Checkout\Session::create([
     'mode' => 'payment',
     'success_url' => $success_url,
     'cancel_url' => $cancel_url,
+    'customer_email' => $_SESSION['brewerEmail'],
+    'client_reference_id' => $_SESSION['brewerID']
 ]);
 header("HTTP/1.1 303 See Other");
 header("Location: " . $checkout_session->url);
