@@ -67,8 +67,6 @@ else {
 	$send_confirmation_email = FALSE;
 }
 
-$save_log_file = TRUE;
-
 $url = str_replace("www.","",$_SERVER['SERVER_NAME']);
 
 $paypal_email_address = filter_var($row_prefs['prefsPayPalAccount'],FILTER_SANITIZE_EMAIL);
@@ -142,7 +140,7 @@ if ($verified) {
 				'brewPaid' => 1,
 				'brewUpdated' => $db_conn->now()
 			);
-			$db_conn->where ('id', ,$value);
+			$db_conn->where ('id', $value);
 			$result = $db_conn->update ($update_table, $data);
 
 			$display_entry_no[$key] = sprintf("%.06s",$b[$key]);
