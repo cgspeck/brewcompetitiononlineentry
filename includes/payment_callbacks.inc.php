@@ -156,7 +156,11 @@ function send_customer_email(Payment_info $payment_info)
     $headers .= "To: " . $payment_info->to_recipient . " <" . $payment_info->to_email . ">, " . "\r\n";
 
     if (!empty($payment_info->cc_email) && ($payment_info->cc_email !== $payment_info->to_email)) {
-        $headers .= "Bcc: " . $payment_info->cc_recipient . " <" . $payment_info->cc_email . ">, " . "\r\n";
+        if (!empty($payment_info->cc_recipient)) {
+            $headers .= "Cc: " . $payment_info->cc_recipient . " <" . $payment_info->cc_email . ">, " . "\r\n";
+        } else {
+            $headers .= "Cc: " . $payment_info->cc_email . ", " . "\r\n";
+        }
     }
 
     $headers .= "From: " . $row_logo['contestName'] . " Server <" . $from_email . ">\r\n";
@@ -227,7 +231,7 @@ function send_admin_confirmation_email(Payment_info $payment_info, string $data_
 
     // this is a copy of email sent to competitor
     if (!empty($payment_info->to_email)) {
-        $message_body_confirm .= "<p>To: " . $payment_info->to_recipient . "<br>" . "To Email: " . $payment_info->to_email . "<br>" . "CC: " . $payment_info->cc_recipient . "<br>" . "BCC Email: " . $payment_info->cc_email . "</p>";
+        $message_body_confirm .= "<p>To: " . $payment_info->to_recipient . "<br>" . "To Email: " . $payment_info->to_email . "<br>" . "CC: " . $payment_info->cc_recipient . "<br>" . "CC Email: " . $payment_info->cc_email . "</p>";
         $message_body_confirm .= $message_body;
         $message_body_confirm .= "<br>-----------------------------------</p>";
     }
