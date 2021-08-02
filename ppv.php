@@ -25,12 +25,7 @@ require(LANG . 'language.lang.php');
 require(LIB . 'email.lib.php');
 require(INCLUDES . 'process_paypal.inc.php');
 
-
-
-
-
 $current_date = getTimeZoneDateTime($_SESSION['prefsTimeZone'], time(), $_SESSION['prefsDateFormat'], $_SESSION['prefsTimeFormat'], "system", "date");
-$current_date_time_display = getTimeZoneDateTime($_SESSION['prefsTimeZone'], time(), $_SESSION['prefsDateFormat'], $_SESSION['prefsTimeFormat'], "long", "date-time");
 $current_time = getTimeZoneDateTime($_SESSION['prefsTimeZone'], time(), $_SESSION['prefsDateFormat'], $_SESSION['prefsTimeFormat'], "system", "time");
 
 $custom_parts = explode("|", $_POST['custom']);
@@ -63,23 +58,6 @@ if ((DEBUG) || (TESTING)) {
 	$send_confirmation_email = FALSE;
 }
 
-// $url = str_replace("www.", "", $_SERVER['SERVER_NAME']);
-
-$paypal_email_address = $row_prefs['prefsPayPalAccount'];
-
-// $from_email = (!isset($mail_default_from) || trim($mail_default_from) === '') ? "noreply@" . $url : $mail_default_from;
-
-// $confirm_to_email_address = "PayPal IPN Confirmation <" . $paypal_email_address . ">";
-// $confirm_from_email_address = $row_logo['contestName'] . " Server <" . $from_email . ">";
-
-$to_email = "";
-$to_recipient = "";
-$cc_email = "";
-$cc_recipient = "";
-
-$test_text = "";
-$data_text = "";
-
 // Instantiate the PayPal IPN Class
 require(CLASSES . 'paypal/paypalIPN.php');
 
@@ -91,24 +69,16 @@ if ($enable_sandbox) {
 
 $verified = $ipn->verifyIPN();
 
-if ($send_confirmation_email) {
-	foreach ($_POST as $key => $value) {
-		$data_text .= "<tr><td width=\"150\">" . $key . "</td><td>" . $value . "</td></tr>";
-	}
-}
-
 if ((isset($_POST['test_ipn'])) && ($_POST['test_ipn'] == 1)) {
 	$test_text = "Test: ";
 }
 
 // Check the receiver email to see if it matches
-$receiver_email_found = FALSE;
+$receiver_email_found = (strtolower($data['receiver_email']) == strtolower($paypal_email_address));
+$payment_succeeded = FALSE;
+$payment_info = new Payment_info();
 
-if (strtolower($data['receiver_email']) == strtolower($paypal_email_address)) {
-	$receiver_email_found = TRUE;
-}
-
-$paypal_ipn_status = "Payment Verification Failed";
+$payment_info->status_message = "Payment Verification Failed";
 
 if ($verified) {
 
@@ -116,53 +86,61 @@ if ($verified) {
 
 	if ($receiver_email_found) {
 
-		$paypal_ipn_status = "Completed Successfully";
+		$payment_info->status_message = "Completed Successfully";
 
 		// Process IPN
 		// A list of variables are available here:
 		// https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNandPDTVariables/
-
-		// If payment completed, update the brewing table rows for each paid entry
-
 		if (strpos($custom_parts[1], "-")) $b = explode("-", $custom_parts[1]);
 		else $b = array($custom_parts[1]);
 		$queries = "";
 		$display_entry_no = array();
-		markEntriesPaid($b);
 		$to_email = 	$row_user_info['brewerEmail'];
 		$to_recipient = $row_user_info['brewerFirstName'] . " " . $row_user_info['brewerLastName'];
 
 		$cc_email = 	$data['payer_email'];
 		$cc_recipient = $data['first_name'] . " " . $data['last_name'];
-		sendCustomerEmail(
-			entry_ids: $b,
-			to_email: $to_email,
-			to_recipient: $to_recipient,
-			payment_type: Payment_type::paypal,
-			display_payer_email: $data['payer_email'],
-			item_name: $data['item_name'],
-			payment_status: $data['payment_status'],
-			payment_amount: $data['payment_amount'],
-			payment_currency: $data['payment_currency'],
-			transaction_id: $data['txn_id'],
-			cc_email: $cc_email,
-			cc_recipient: $cc_recipient
-		);
+
+		$payment_info->entry_ids = $b;
+		$payment_info->to_email = $to_email;
+		$payment_info->$to_recipient;
+		$payment_info->payment_type = Payment_type::paypal;
+		$payment_info->display_payer_email = $data['payer_email'];
+		$payment_info->item_name = $data['item_name'];
+		$payment_info->payment_status = $data['payment_status'];
+		$payment_info->payment_amount = $data['payment_amount'];
+		$payment_info->payment_currency = $data['payment_currency'];
+		$payment_info->transaction_id = $data['txn_id'];
+		$payment_info->cc_email = $cc_email;
+		$payment_info->cc_recipient = $cc_recipient;
+		$payment_succeeded = TRUE;
 	}
 } elseif ($enable_sandbox) {
-	if ($_POST['test_ipn'] != 1) $paypal_ipn_status = "Received from Live While Sandboxed";
+	if ($_POST['test_ipn'] != 1) $payment_info->status_message = "Received from Live While Sandboxed";
 } elseif ($_POST['test_ipn'] == 1) {
-	$paypal_ipn_status = "Received from Sandbox While Live";
+	$payment_info->status_message = "Received from Sandbox While Live";
+}
+
+if ($payment_succeeded) {
+	mark_entries_paid($payment_info->entry_ids);
+	send_customer_email($payment_info);
 }
 
 // saving log
-$insertSQL = sprintf("INSERT INTO %s (uid, first_name, last_name, item_name, txn_id, payment_gross, currency_code, payment_status, payment_entries, payment_time) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", $prefix . "payments", $custom_parts[0], $data['first_name'], $data['last_name'], $data['item_name'], $data['txn_id'], $data['payment_amount'], $data['payment_currency'], $paypal_ipn_status, $custom_parts[1], time());
-mysqli_real_escape_string($connection, $insertSQL);
-$result = mysqli_query($connection, $insertSQL) or die(mysqli_error($connection));
+save_payment_log(
+	brewer_id: 1,
+	first_name: 'first name',
+	last_name: 'last_name',
+	payment_info: $payment_info
+);
 
 if ($send_confirmation_email) {
+	$data_text = "";
+	foreach ($_POST as $key => $value) {
+		$data_text .= "<tr><td width=\"150\">" . $key . "</td><td>" . $value . "</td></tr>";
+	}
 	// Send confirmation email
-	sendAdminConfirmationEmail();
+	send_admin_confirmation_email($payment_info, $data_text);
 }
 
 // Reply with an empty 200 response to indicate to paypal the IPN was received correctly
