@@ -16,7 +16,6 @@ To implement:
 
 */
 
-use PHPMailer\PHPMailer\PHPMailer;
 require('paths.php');
 require(CONFIG . 'bootstrap.php');
 require(INCLUDES . 'url_variables.inc.php');
