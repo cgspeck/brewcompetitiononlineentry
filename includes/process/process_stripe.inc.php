@@ -1,13 +1,31 @@
 <?php
+require_once(ROOT . 'vendor/stripe-php-7.91.0/init.php');
+include(DB . 'entries.db.php');
+include(INCLUDES . "constants.inc.php");
+include(INCLUDES . "pay.common.inc.php");
+
+// guards
+if ($disable_pay) {
+    header("HTTP/1.1 303 See Other");
+    header("Location: /index.php?section=pay");
+}
 
 if ($_SESSION['prefsStripeEnabled'] != "Y") {
     header("HTTP/1.1 303 See Other");
     header("Location: /index.php?section=pay");
 }
-require_once(ROOT . 'vendor/stripe-php-7.91.0/init.php');
-include(DB . 'entries.db.php');
-include(INCLUDES . "constants.inc.php");
-include(INCLUDES . "pay.common.inc.php");
+
+$return_entries = "";
+do {
+    if ($row_log_confirmed['brewPaid'] != "1") {
+        $return_entries .= "-" . $row_log_confirmed['id'];
+    }
+} while ($row_log_confirmed = mysqli_fetch_assoc($log_confirmed));
+
+if (empty($return_entries)) {
+    header("HTTP/1.1 303 See Other");
+    header("Location: /index.php?section=pay");
+}
 
 if (TESTING) {
     $stripe_sk = $_SESSION['prefsStripeTestPrivateKey'];
@@ -48,7 +66,7 @@ $checkout_session = \Stripe\Checkout\Session::create([
     'success_url' => $success_url,
     'cancel_url' => $cancel_url,
     'customer_email' => $_SESSION['brewerEmail'],
-    'client_reference_id' => $_SESSION['brewerID']
+    'client_reference_id' => sprintf("%s|%s", $_SESSION['brewerID'], $return_entries)
 ]);
 header("HTTP/1.1 303 See Other");
 header("Location: " . $checkout_session->url);
