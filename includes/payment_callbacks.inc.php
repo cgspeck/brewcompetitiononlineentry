@@ -92,6 +92,11 @@ function _make_customer_message_body(Payment_info $payment_info, $row_logo)
 
     $message_body = "";
 
+    /*
+        TODO check whether paypal_response_text_xxx is actually paypal specific
+        if not, rename and use
+        if yes, add stripe equivalent and switch depending on $payment_info->payment_type
+    */
     if ((isset($row_logo['contestLogo'])) && (file_exists(USER_IMAGES . $row_logo['contestLogo']))) $message_body .= "<p><img src='" . $base_url . "/user_images/" . $row_logo['contestLogo'] . "' height='150'></p>";
     $message_body .= "<p>" . $payment_info->to_recipient . ",</p>";
     $message_body .= sprintf("<p>%s</p>", $paypal_response_text_000);
@@ -139,6 +144,7 @@ function save_payment_log(
 ) {
     global $connection, $prefix;
     // TODO: use a prepared statement
+    // TODO: mark stripe vs paypal
     $insertSQL = sprintf("INSERT INTO %s (uid, first_name, last_name, item_name, txn_id, payment_gross, currency_code, payment_status, payment_entries, payment_time) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')", $prefix . "payments", $brewer_id, $first_name, $last_name, $payment_info->item_name, $payment_info->transaction_id, $payment_info->payment_amount, $payment_info->payment_currency, $payment_info->status_message, $payment_info->entry_ids, time());
     mysqli_real_escape_string($connection, $insertSQL);
     mysqli_query($connection, $insertSQL) or die(mysqli_error($connection));
@@ -181,6 +187,11 @@ function send_customer_email(Payment_info $payment_info)
         $test_text = "Test: ";
     }
 
+    /*
+        TODO check whether paypal_response_text_xxx is actually paypal specific
+        if not, rename and use
+        if yes, add stripe equivalent and switch depending on $payment_info->payment_type
+    */
     // Send the email message
     $subject = $test_text . " " . $payment_info->item_name . " - " . ucwords($paypal_response_text_009);
 
@@ -208,6 +219,9 @@ function send_admin_confirmation_email(Payment_info $payment_info, string $data_
 
     $message_body = _make_customer_message_body($payment_info, $row_logo);
 
+    /*
+        TODO: check payment_type and set alternate values for Stripe
+    */
     $query_prefs = sprintf("SELECT prefsPayPalAccount FROM %s WHERE id='1'", $prefix . "preferences");
     $prefs = mysqli_query($connection, $query_prefs) or die(mysqli_error($connection));
     $row_prefs = mysqli_fetch_assoc($prefs);
@@ -251,6 +265,9 @@ function send_admin_confirmation_email(Payment_info $payment_info, string $data_
 
     $subject_confirm = "PayPal IPN: " . $payment_info->status_message;
 
+    /*
+        TODO: check payment_type and set alternate values for Stripe
+    */
     if ($mail_use_smtp) {
         $mail = new PHPMailer(true);
         $mail->CharSet = 'UTF-8';

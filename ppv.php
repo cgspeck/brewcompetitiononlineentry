@@ -93,7 +93,6 @@ if ($verified) {
 		if (strpos($custom_parts[1], "-")) $b = explode("-", $custom_parts[1]);
 		else $b = array($custom_parts[1]);
 		$queries = "";
-		$display_entry_no = array();
 		$to_email = 	$row_user_info['brewerEmail'];
 		$to_recipient = $row_user_info['brewerFirstName'] . " " . $row_user_info['brewerLastName'];
 
