@@ -23,6 +23,7 @@ require_once(ROOT . 'vendor/stripe-php-7.91.0/init.php');
 include(DB . 'entries.db.php');
 include(INCLUDES . "constants.inc.php");
 include(INCLUDES . "pay.common.inc.php");
+include(INCLUDES . "payment_callbacks.inc.php");
 
 // Set this to true to use the sandbox endpoint during testing:
 if ((DEBUG) || (TESTING)) {
@@ -32,8 +33,6 @@ if ((DEBUG) || (TESTING)) {
 	$enable_sandbox = FALSE;
 	$send_confirmation_email = FALSE;
 }
-
-
 
 if (TESTING) {
 	$stripe_sk = $_SESSION['prefsStripeTestPrivateKey'];
@@ -47,7 +46,11 @@ $payload = @file_get_contents('php://input');
 $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
 $event = null;
 
+// TODO: load/save from DB
+$endpoint_secret = "the-value";
+
 try {
+	print_log("Constructing Stripe event");
 	$event = \Stripe\Webhook::constructEvent(
 		$payload,
 		$sig_header,
@@ -55,10 +58,12 @@ try {
 	);
 } catch (\UnexpectedValueException $e) {
 	// Invalid payload
+	print_log("Invalid payload");
 	http_response_code(400);
 	exit();
 } catch (\Stripe\Exception\SignatureVerificationException $e) {
 	// Invalid signature
+	print_log("Invalid signature");
 	http_response_code(400);
 	exit();
 }
@@ -78,7 +83,6 @@ function fulfill_order($session)
 	$query_user_info = sprintf("SELECT brewerFirstName,brewerLastName,brewerEmail FROM %s WHERE uid='%s'", $prefix . "brewer", $brewer_id);
 	$user_info = mysqli_query($connection, $query_user_info) or die(mysqli_error($connection));
 	$row_user_info = mysqli_fetch_assoc($user_info);
-	$totalRows_user_info = mysqli_num_rows($user_info);
 
 	$payment_info = new Payment_info();
 	$payment_info->payment_type = Payment_type::stripe;
@@ -91,7 +95,28 @@ function fulfill_order($session)
 
 	// returned from Stripe and verified
 	$payment_info->entry_ids = $entry_ids;
-	$payment_info->item_name = $session->line_items->data[0]->description;
+
+	$entry_str = count($entry_ids) > 1 ? "entries" : "entry";
+	$entry_str .= join(", ", $entry_ids);
+
+	if ($_SESSION['prefsProEdition'] == 1) {
+		$item_name = sprintf(
+			"%s - %s %s",
+			$_SESSION['brewerBreweryName'],
+			remove_accents($_SESSION['contestName']),
+			$entry_str
+		);
+	} else {
+		$item_name = sprintf(
+			"%s, %s - %s %s",
+			$row_user_info['brewerLastName'],
+			$row_user_info['brewerFirstName'],
+			remove_accents($_SESSION['contestName']),
+			$entry_str
+		);
+	}
+
+	$payment_info->item_name = $item_name;
 	$payment_info->payment_status = $session->payment_status;
 	$payment_info->payment_amount = $session->amount_total;
 	$payment_info->payment_currency = $session->currency;
