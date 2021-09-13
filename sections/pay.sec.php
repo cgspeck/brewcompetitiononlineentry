@@ -156,7 +156,6 @@ else {
 		}
 
 		if ($_SESSION['prefsPaypal'] == "Y" || $_SESSION['prefsStripeEnabled'] == "Y")  {
-
 			/**
 			 * As of August 1, 2021, PayPal fees were split. What is reflected here is the 
 			 * HIGHEST amount PayPal charges per transaction which is 3.49% + $0.49 US. The 
@@ -164,9 +163,11 @@ else {
 			 * currencies as well.
 			 */
 			
+			$payment_amount = calculate_payment_amount();
+			$fee = 0;
+
 			if ($_SESSION['prefsTransFee'] == "Y") {
-				$fee = $calculate_checkout_fees();
-				$payment_amount = $calculate_payment_amount();
+				$fee = calculate_checkout_fees();
 			}
 
 			// Online

@@ -22,6 +22,8 @@ do {
     }
 } while ($row_log_confirmed = mysqli_fetch_assoc($log_confirmed));
 
+$return_entries = ltrim($return_entries, '-');
+
 if (empty($return_entries)) {
     header("HTTP/1.1 303 See Other");
     header("Location: /index.php?section=pay");
