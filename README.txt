@@ -8,7 +8,7 @@ Release 2.1.19, 2020-07-28
 
 Developed utilizing a number of extensions and functions, with gratitude to their
 respective developers and online communities. Tested with the following versions:
-- PHP 7.3.X                       http://www.php.net
+- PHP 7.4.X                       http://www.php.net
   -- PHP's Fileinfo extension must be installed and enabled
   -- see http://php.net/manual/en/fileinfo.setup.php
 - MySQL 5.5.42                    	http://www.mysql.com
