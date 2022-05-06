@@ -2194,12 +2194,12 @@ $output .= "<li>Corrected British Golden Ale name.</li>";
 */
 
 if (!check_update("prefsStripeEnabled", $prefix . "preferences")) {
-	$updateSQL = sprintf("ALTER TABLE `%s` ADD `prefsStripeEnabled` TINYINT(1) NULL DEFAULT NULL;", $prefix . "preferences");
+	$updateSQL = sprintf("ALTER TABLE `%s` ADD `prefsStripeEnabled` char(1) NULL DEFAULT NULL;", $prefix . "preferences");
 	mysqli_select_db($connection, $database);
 	mysqli_real_escape_string($connection, $updateSQL);
 	$result = mysqli_query($connection, $updateSQL);
 
-	$updateSQL = sprintf("UPDATE `%s` SET prefsStripeEnabled='0';", $prefix . "preferences");
+	$updateSQL = sprintf("UPDATE `%s` SET prefsStripeEnabled='N';", $prefix . "preferences");
 	mysqli_real_escape_string($connection, $updateSQL);
 	$result = mysqli_query($connection, $updateSQL) or die(mysqli_error($connection));
 }

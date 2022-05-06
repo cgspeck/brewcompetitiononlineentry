@@ -133,6 +133,7 @@ $(document).ready(function(){
     $("#reCAPTCHA-keys").hide();
     $("#helpBlock-payPalIPN1").hide();
     $("#paypal-payment").hide();
+    $("#stripe-payment").hide();
     $("#checks-payment").hide();
 
     <?php 
@@ -198,18 +199,12 @@ $(document).ready(function(){
         }
     });
 
-    <?php if ($row_prefs['prefsStripeEnabled']) { ?>
+    <?php if ($row_prefs['prefsStripeEnabled'] == "Y") { ?>
         $("#stripe-payment").show("fast");
         $("input[name='prefsStripeTestPublicKey']").prop("required", true);
         $("input[name='prefsStripeTestPrivateKey']").prop("required", true);
         $("input[name='prefsStripeLivePublicKey']").prop("required", true);
         $("input[name='prefsStripeLivePrivateKey']").prop("required", true);
-    <?php } else { ?>
-        $("#stripe-payment").hide("fast");
-        $("input[name='prefsStripeTestPublicKey']").prop("required", false);
-        $("input[name='prefsStripeTestPrivateKey']").prop("required", false);
-        $("input[name='prefsStripeLivePublicKey']").prop("required", false);
-        $("input[name='prefsStripeLivePrivateKey']").prop("required", false);
     <?php } ?>
 
     $("input[name$='prefsStripeEnabled']").click(function() {
@@ -551,7 +546,7 @@ $(document).ready(function(){
             <label class="radio-inline">
                 <input type="radio" name="prefsEmailCC" value="1" id="prefsEmailCC_1"  <?php if ($row_prefs['prefsEmailCC'] == "1") echo "CHECKED"; elseif ($section == "step3") echo "CHECKED"; ?> /> Disable
             </label>
-            
+
         </div>
         <span id="helpBlock" class="help-block">
         <p>Enable or disable automatic carbon copying (CC) of emails sent by the system to the "sender" of the email. Since any email address can be entered in the From field of the Contact form, disabling CC will prevent malicious actors from using the competition contact form to spam emails unrelated to the competition.</p>
@@ -1717,10 +1712,10 @@ $(document).ready(function(){
         <div class="input-group">
             <!-- Input Here -->
             <label class="radio-inline">
-                <input type="radio" name="prefsStripeEnabled" value="Y" id="prefsStripeEnabled_0" <?php if ($row_prefs['prefsStripeEnabled'] == true) echo "CHECKED"; ?> />Enable
+                <input type="radio" name="prefsStripeEnabled" value="Y" id="prefsStripeEnabled_0" <?php if ($row_prefs['prefsStripeEnabled'] == "Y") echo "CHECKED"; ?> />Enable
             </label>
             <label class="radio-inline">
-                <input type="radio" name="prefsStripeEnabled" value="N" id="prefsStripeEnabled_1" <?php if ($row_prefs['prefsStripeEnabled'] == false) echo "CHECKED";
+                <input type="radio" name="prefsStripeEnabled" value="N" id="prefsStripeEnabled_1" <?php if ($row_prefs['prefsStripeEnabled'] == "N") echo "CHECKED";
                                                                                                     elseif ($section == "step3") echo "CHECKED"; ?> />
                 Disable</label>
         </div>
