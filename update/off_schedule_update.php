@@ -1,6 +1,6 @@
 <?php
 flush();
-$db_conn = new MysqliDb($connection);
+
 if (!isset($output)) $output = "";
 
 /**

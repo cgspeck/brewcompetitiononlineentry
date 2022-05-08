@@ -127,7 +127,6 @@ if ($setup_success) {
 	// ---------------------------- Load Required Scripts ----------------------------
 
 	if (SINGLE) require_once(SSO.'sso.inc.php');
-	require_once(CONFIG.'MysqliDb.php');
 	require_once (LIB.'common.lib.php');
 	require_once (INCLUDES.'db_tables.inc.php');
 	if (($msg == "16") || ($force_update)) include (UPDATE.'off_schedule_update.php');

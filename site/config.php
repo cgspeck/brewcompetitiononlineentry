@@ -189,7 +189,7 @@ $sub_directory = '';
 
 $base_url = 'http://';
 if (is_https()) $base_url = 'https://';
-$base_url .= $_SERVER['SERVER_NAME'].$sub_directory.'/';
+$base_url .= $_SERVER['SERVER_NAME'] . $sub_directory . '/';
 
 /*
  * ******************************************************************************
@@ -202,6 +202,7 @@ $base_url .= $_SERVER['SERVER_NAME'].$sub_directory.'/';
  * uncomment the second variable ONLY if you are experiencing issues. Otherwise,
  * the default will suffice.
  */
+
 
 $server_root = $_SERVER['DOCUMENT_ROOT'];
 //$server_root = $_SERVER['SUBDOMAIN_DOCUMENT_ROOT'];
