@@ -304,7 +304,7 @@ if (((isset($_SERVER['HTTP_REFERER'])) && ($referrer['host'] == $_SERVER['SERVER
 
 	if (DEBUG) include (DEBUGGING.'query_count_end.debug.php');
 	session_write_close();
-	header($redirect_go_to);
+	header(str_replace(array("\r", "\n"), '', $redirect_go_to));
 
 }
 
