@@ -20,3 +20,5 @@ update/move_files.php
 lib/hosted.lib.php
 ajax/autosave.ajax.php
 css/anomalus.css
+config.local.php
+.htpassword
