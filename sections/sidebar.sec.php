@@ -342,7 +342,7 @@ if ($section != "admin") {
 
 		do {
 
-			if (($row_archive['archiveDisplayWinners'] == "Y") && ($row_archive['archiveStyleSet'] != "")) {
+			if ((isset($row_archive['archiveDisplayWinners']) && isset($row_archive['archiveStyleSet'])) && ($row_archive['archiveDisplayWinners'] == "Y") && ($row_archive['archiveStyleSet'] != "")) {
 				$table_archive = $prefix."judging_scores_".$row_archive['archiveSuffix'];
 				if (table_exists($table_archive)) {
 			   		if (get_archive_count($table_archive) > 0) {
