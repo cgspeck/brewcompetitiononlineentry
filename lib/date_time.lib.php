@@ -111,7 +111,7 @@ function getTimeZoneDateTime($timezone_offset, $timestamp, $date_format, $time_f
 
 	switch($return_format) {
 		case "date-time":
-			$return = $date." ".$time.", ".date('T',$timestamp);
+			$return = $date." ".$time.", AEST";
 		break;
 		case "date-time-no-gmt":
 			$return = $date." ".$time;
@@ -123,7 +123,7 @@ function getTimeZoneDateTime($timezone_offset, $timestamp, $date_format, $time_f
 			$return = $date;
 		break;
 		case "time-gmt":
-			$return = $time.", ".date('T',$timestamp);
+			$return = $time.", AEST";
 		break;
 		case "time":
 			$return = $time;
