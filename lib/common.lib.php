@@ -3191,6 +3191,37 @@ function limit_subcategory($style,$pref_num,$pref_exception_sub_num,$pref_except
 			else $limit_reached = FALSE;
 		}
 	}
+	return ($limit_reached || limit_category($style_num, $uid));
+}
+
+function limit_category($style_num, $uid)
+{
+	/*
+	$style_num = "style number" as computed by limit_subcategory function above.
+	*/
+	$category_limit = 2;
+
+	require(CONFIG . 'config.php');
+	mysqli_select_db($connection, $database);
+
+	$limit_reached = FALSE;
+
+	if ($_SESSION['prefsStyleSet'] == "BA") {
+		// BA styles not required, Stout Comp is using AABC style set
+		throw new Exception('Not implemented');
+	} else {
+		// Others
+		$query_check = sprintf(
+			"SELECT COUNT(*) as 'count' FROM %s WHERE brewBrewerID='%s' AND brewCategorySort='%s'",
+			$prefix . "brewing",
+			$uid,
+			$style_num
+		);
+		$check = mysqli_query($connection, $query_check) or die(mysqli_error($connection));
+		$row_check = mysqli_fetch_assoc($check);
+	}
+
+	if ($row_check['count'] >= $category_limit) $limit_reached = TRUE;
 
 	return $limit_reached;
 }
