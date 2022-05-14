@@ -20,7 +20,7 @@ $bestbrewer_clubs = array();
 include(DB.'scores_bestbrewer.db.php');
 
 // Loop through brewing table for preliminary round scores
-do {
+while ($bb_row_scores = mysqli_fetch_assoc($bb_scores)) {
 
 	$place = floor($bb_row_scores['scorePlace']);
 	$club_name = normalizeClubs($bb_row_scores['brewerClubs']);
@@ -84,7 +84,7 @@ do {
 
 	}
 
-} while ($bb_row_scores = mysqli_fetch_assoc($bb_scores));
+};
 
 
 // BOS - do calcs only if pref is true
