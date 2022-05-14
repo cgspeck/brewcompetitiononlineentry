@@ -2483,8 +2483,8 @@ function brewer_assignment($user_id,$method,$id,$dbTable,$filter,$archive="defau
 	$row_staff_check = mysqli_fetch_assoc($staff_check);
 	$totalRows_staff_check = mysqli_num_rows($staff_check);
 
-	if ($row_staff_check['staff_judge'] == "1") $assignment = strtolower($label_judges);
-	elseif ($row_staff_check['staff_steward'] == "1") $assignment = strtolower($label_stewards);
+	if (isset($row_staff_check['staff_judge']) && ($row_staff_check['staff_judge'] == "1")) $assignment = strtolower($label_judges);
+	elseif (isset($row_staff_check['staff_steward']) && ($row_staff_check['staff_steward'] == "1")) $assignment = strtolower($label_stewards);
 	else $assignment = "";
 
 	if ($totalRows_staff_check > 0) {
@@ -2551,7 +2551,7 @@ function check_special_ingredients($style,$style_version) {
 	$brews = mysqli_query($connection,$query_brews) or die (mysqli_error($connection));
 	$row_brews = mysqli_fetch_assoc($brews);
 
-	if ($row_brews['brewStyleReqSpec'] == 1) return TRUE;
+	if (isset($row_brews['brewStyleReqSpec']) && ($row_brews['brewStyleReqSpec'] == 1)) return TRUE;
 	else return FALSE;
 }
 

@@ -470,8 +470,8 @@ function participant_choose($brewer_db_table,$pro_edition,$judge) {
 	
 	if ($judge == 0) $output .= "<option value=\"\" selected disabled data-icon=\"fa fa-plus-circle\">Add an Entry For...</option>";
 	else $output .= "<option value=\"\"></option>";
-	
-	do {
+
+	while ($row_brewers = mysqli_fetch_assoc($brewers)) {
 
 		if ($judge == 1) {
 			$output .= "<option value=\"".$row_brewers['uid']."\">".$row_brewers['brewerLastName'].", ".$row_brewers['brewerFirstName']."</option>";
@@ -482,7 +482,7 @@ function participant_choose($brewer_db_table,$pro_edition,$judge) {
 			else $output .= "<option value=\"index.php?section=brew&amp;go=entries&amp;bid=".$row_brewers['uid']."&amp;action=add\" data-content=\"<span class='small'>".$row_brewers['brewerLastName'].", ".$row_brewers['brewerFirstName']."</span>\">".$row_brewers['brewerLastName'].", ".$row_brewers['brewerFirstName']."</option>";
 		}
 
-	} while ($row_brewers = mysqli_fetch_assoc($brewers));
+	};
 	$output .= "</select>";
 
 	return $output;
