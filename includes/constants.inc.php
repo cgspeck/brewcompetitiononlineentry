@@ -1,4 +1,5 @@
 <?php
+
 /** -------------------------- Languages Available ----------------------------------------------
  * Array of languages available for translation
  * Associative array of available translation languages.
