@@ -104,11 +104,16 @@ if (($_SESSION['prefsProEdition'] == 0) || (($_SESSION['prefsProEdition'] == 1) 
     }
 
     foreach ($club_array as $club) {
-        $club_selected = "";
-        if ($section != "step2") {
-            if ($club == $row_brewer['brewerClubs']) $club_selected = " SELECTED";
+        if ($club == "---") {
+            $club_options .= "<option data-divider=\"true\"></option>";
+        } else {
+            $club_selected = "";
+            if ($section != "step2") {
+                if ($club == $row_brewer['brewerClubs']) $club_selected = " SELECTED";
+            }
+            $club_options .= "<option value=\"".$club."\"".$club_selected.">".$club."</option>\n";
         }
-        $club_options .= "<option value=\"".$club."\"".$club_selected.">".$club."</option>\n";
+
     }
 
 }
