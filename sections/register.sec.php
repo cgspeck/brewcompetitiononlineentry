@@ -333,7 +333,11 @@ if (($_SESSION['prefsProEdition'] == 0) || (($_SESSION['prefsProEdition'] == 1) 
 	$club_other = FALSE;
 
 	foreach ($club_array as $club) {
-		$club_options .= "<option value=\"".$club."\">".$club."</option>\n";
+		if ($club == "---") {
+			$club_options .= "<option data-divider=\"true\"></option>";
+		} else {
+			$club_options .= "<option value=\"".$club."\">".$club."</option>\n";
+		}
 	}
 
 }
