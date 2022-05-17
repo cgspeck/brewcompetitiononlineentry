@@ -167,8 +167,8 @@ $flaws_structured_cider = array(
 );
 
 // Scoresheet points (defaults to beer)
-$aroma_points = 12;
-$appearance_points = 3;
+$aroma_points = 10;
+$appearance_points = 5;
 $flavor_points = 20;
 $mouthfeel_points = 5;
 $overall_points = 10;
