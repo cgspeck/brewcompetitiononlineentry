@@ -148,6 +148,7 @@ else $relocate = $base_url."index.php?section=list";
 $entrant_hidden = FALSE;
 $judge_hidden = FALSE;
 $steward_hidden = FALSE;
+$hide_dropoff_fields = FALSE;
 
 if ($registration_open != 1) {
 	$entrant_hidden = TRUE;
@@ -164,6 +165,10 @@ if ($go == "judge") {
 
 if ($go == "steward") {
 	$judge_hidden = TRUE;
+}
+
+if ($go == "judge" || $go == "steward") {
+	$hide_dropoff_fields = TRUE;
 }
 
 if (($section != "admin") && ($judge_limit)) {
@@ -625,19 +630,20 @@ if ($go == "default") {  ?>
 		</div>
 	</div><!-- ./Form Group -->
     <?php if (($_SESSION['prefsProEdition'] == 0) || (($_SESSION['prefsProEdition'] == 1) && ($go == "entrant"))) { ?>
-	<div class="form-group"><!-- Form Group REQUIRED Select -->
+	<div class="form-group" <? $hide_dropoff_fields ? print('hidden') : print('') ?>><!-- Form Group REQUIRED Select -->
 		<label for="" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 control-label text-warning"><i class="fa fa-sm fa-asterisk"></i> <?php echo $label_drop_off; ?></label>
-		<div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+		<div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 has-warning">
 			<!-- Input Here -->
 			<select class="selectpicker" name="brewerDropOff" id="brewerDropOff" data-live-search="true" data-size="10" data-width="fit" data-show-tick="true" data-header="<?php echo $label_select_dropoff; ?>" title="<?php echo $label_select_dropoff; ?>" required>
 				<?php if (!empty($dropoff_select)) { ?>
 	                <?php echo $dropoff_select; ?>
 	                <option data-divider="true"></option>
-	            <?php } if (!empty($_SESSION['contestShippingAddress'])) { ?>
+	            <?php } ?>
+				<?php if (!empty($_SESSION['contestShippingAddress'])) { ?>
 					<option value="0"><?php echo $brewer_text_048; ?></option>
 					<option data-divider="true"></option>
 				<?php } ?>
-					<option value="999"><?php echo $brewer_text_005; ?></option>
+				<option value="999"><?php echo $brewer_text_005; ?></option>
 			</select>
 			<?php if (!empty($_SESSION['contestShippingAddress'])) { ?><span class="help-block"><?php echo $brewer_text_050; ?></span><?php } ?>
 			<span class="help-block"><?php echo $brewer_text_049; ?></span>
