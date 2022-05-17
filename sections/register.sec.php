@@ -295,6 +295,7 @@ else $relocate = $base_url."index.php?section=list";
 $entrant_hidden = FALSE;
 $judge_hidden = FALSE;
 $steward_hidden = FALSE;
+$hide_dropoff_fields = FALSE;
 
 if ($registration_open != 1) {
 	$entrant_hidden = TRUE;
@@ -311,6 +312,10 @@ if ($go == "judge") {
 
 if ($go == "steward") {
 	$judge_hidden = TRUE;
+}
+
+if ($go == "judge" || $go == "steward") {
+	$hide_dropoff_fields = TRUE;
 }
 
 if (($section != "admin") && ($judge_limit)) {
@@ -698,7 +703,7 @@ if ($go == "default") {  ?>
 		</div>
 	</div><!-- ./Form Group -->
     <?php if (($_SESSION['prefsProEdition'] == 0) || (($_SESSION['prefsProEdition'] == 1) && ($go == "entrant"))) { ?>
-	<div class="form-group"><!-- Form Group REQUIRED Select -->
+	<div class="form-group" <? $hide_dropoff_fields ? print('hidden') : print('') ?>><!-- Form Group REQUIRED Select -->
 		<label for="" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 control-label"><?php echo $label_drop_off; ?></label>
 		<div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 has-warning">
 			<!-- Input Here -->
@@ -707,7 +712,7 @@ if ($go == "default") {  ?>
 	                <?php echo $dropoff_select; ?>
 	                <option disabled>----------------------------------------</option>
 	            <?php } ?>
-				<option value="0"><?php echo $brewer_text_005; ?></option>
+				<option value="0" <?php $hide_dropoff_fields ? print('selected') : print('') ?>><?php echo $brewer_text_005; ?></option>
 			</select>
 		</div>
 	</div><!-- ./Form Group -->
