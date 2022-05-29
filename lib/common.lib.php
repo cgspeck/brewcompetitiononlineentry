@@ -3349,7 +3349,7 @@ function styles_active($method,$archive="") {
 	require(CONFIG.'config.php');
 	mysqli_select_db($connection,$database);
 
-	if ((empty($archive)) || ($archive == "default")) {
+	if ((empty($archive)) || ($archive == "default") || ($archive == "all") || ($archive == "judging_scores")) {
 		$style_set = $_SESSION['prefsStyleSet'];
 		$style_types_db = $prefix."style_types";
 	}
