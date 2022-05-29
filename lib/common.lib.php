@@ -1255,13 +1255,12 @@ function style_convert($number,$type,$base_url="",$archive="") {
 	require(LANG.'language.lang.php');
 	$styles_db_table = $prefix."styles";
 	$style_set = $_SESSION['prefsStyleSet'];
-
 	mysqli_select_db($connection,$database);
-	$query_style = sprintf("SELECT brewStyleNum,brewStyleGroup,brewStyle,brewStyleVersion,brewStyleReqSpec,brewStyleOwn FROM %s WHERE brewStyleGroup='%s' AND (brewStyleVersion='%s' OR brewStyleOwn='custom')",$styles_db_table,$number,$style_set);
+	$query_style = sprintf("SELECT brewStyleNum,brewStyleGroup,brewStyle,brewStyleVersion,brewStyleReqSpec,brewStyleOwn,brewStyleCategory FROM %s WHERE brewStyleGroup='%s' AND (brewStyleVersion='%s' OR brewStyleOwn='custom')",$styles_db_table,$number,$style_set);
 	$style = mysqli_query($connection,$query_style) or die (mysqli_error($connection));
 	$row_style = mysqli_fetch_assoc($style);
 
-	if ((!empty($archive)) && ($archive != "default")) {
+	if ((!empty($archive)) && !(($archive == "default") || ($archive == "all") || ($archive == "judging_scores"))) {
 		$query_archive_db = sprintf("SELECT archiveStyleSet FROM %s WHERE archiveSuffix='%s'",$prefix."archive",$archive);
 		$archive_db = mysqli_query($connection,$query_archive_db) or die (mysqli_error($connection));
 		$row_archive_db = mysqli_fetch_assoc($archive_db);
@@ -1282,10 +1281,15 @@ function style_convert($number,$type,$base_url="",$archive="") {
 		if ((is_numeric($number)) && ($number >= $start_custom) && ($row_style['brewStyleOwn'] != "bcoe")) $custom = TRUE;
 
 		// if numeric make two-digit by adding leading zero just in case
-		if (is_numeric($number)) $number = sprintf('%02d', $number); 
+		if (is_numeric($number)) $number = sprintf('%02d', $number);
 
-		if ($custom) $style_convert = $row_style['brewStyle']." (Custom Style)";
-		
+		if ($custom) {
+			if (!is_null($row_style["brewStyleCategory"])) {
+				$style_convert = $row_style['brewStyleCategory'];
+			} else {
+				$style_convert = $row_style['brewStyle'];
+			}
+		}
 		else {
 			foreach ($style_sets as $style_set_data) {
 				if ($style_set_data['style_set_name'] === $style_set) {
