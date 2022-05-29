@@ -244,8 +244,8 @@ function purge_entries($type, $interval) {
 		$check = mysqli_query($connection,$query_check) or die (mysqli_error($connection));
 		$row_check = mysqli_fetch_assoc($check);
 
-		do { $a[] = $row_check['id']; } while ($row_check = mysqli_fetch_assoc($check));
-
+		while ($row_check = mysqli_fetch_assoc($check)) { $a[] = $row_check['id']; } ;
+		$a = [];
 		foreach ($a as $id) {
 			$deleteEntries = sprintf("DELETE FROM %s WHERE id='%s'", $prefix."brewing", $id);
 			mysqli_select_db($connection,$database);
@@ -262,7 +262,7 @@ function purge_entries($type, $interval) {
 		$check = mysqli_query($connection,$query_check) or die (mysqli_error($connection));
 		$row_check = mysqli_fetch_assoc($check);
 
-		do {
+		while ($row_check = mysqli_fetch_assoc($check)) {
 
 			$deleteEntries = sprintf("DELETE FROM %s WHERE id='%s'", $prefix."brewing", $row_check['id']);
 			mysqli_select_db($connection,$database);
@@ -270,7 +270,7 @@ function purge_entries($type, $interval) {
 			$result = mysqli_query($connection,$deleteEntries) or die (mysqli_error($connection));
 			if ($result) $count += 1;
 
-		} while ($row_check = mysqli_fetch_assoc($check));
+		};
 	}
 
 	if ($count > 0) return TRUE;
