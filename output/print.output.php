@@ -28,8 +28,8 @@ else {
 	$totalRows_archive_prefs = mysqli_num_rows($archive_prefs);
 
 	if ($totalRows_archive_prefs > 0) {
-		$winner_method = $row_archive_prefs['archiveWinnerMethod'];
-		$style_set = $row_archive_prefs['archiveStyleSet'];
+		$winner_method =  ($row_archive_prefs == null) ? $_SESSION['prefsWinnerMethod'] : $row_archive_prefs['archiveWinnerMethod'];
+		$style_set = ($row_archive_prefs == null) ? $_SESSION['prefsStyleSet'] : $row_archive_prefs['archiveStyleSet'];
 		$judging_scores_db_table = $prefix."judging_scores_".$filter;
 		$brewing_db_table = $prefix."brewing_".$filter;
 		$brewer_db_table = $prefix."brewer_".$filter;
