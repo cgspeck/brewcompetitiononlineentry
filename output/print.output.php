@@ -13,7 +13,7 @@ $role_replace1 = array("HJ","LJ","MBOS",", ");
 $role_replace2 = array("<span class=\"fa fa-gavel\"></span> Head Judge","<span class=\"fa fa-star\"></span> Lead Judge","<span class=\"fa fa-trophy\"></span> Mini-BOS Judge","&nbsp;&nbsp;&nbsp;");
 
 // Queries for current data
-if ($filter == "default") {
+if (is_null($filter) || ($filter == "default" || $filter == "none" || $filter == "scores")) {
 	$winner_method = $_SESSION['prefsWinnerMethod'];
 	$style_set = $_SESSION['prefsStyleSet'];
 }

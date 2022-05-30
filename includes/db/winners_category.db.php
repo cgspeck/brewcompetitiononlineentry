@@ -3,7 +3,7 @@
 if ((isset($style)) && (is_numeric($style))) $style_pad = sprintf("%02d", $style);
 else $style_pad = $style;
 
-if ($filter == "default") {
+if (is_null($filter) || ($filter == "none" || $filter == "default" || $filter == "scores")) {
 	$winner_style_set = $_SESSION['prefsStyleSet'];
 }
 
