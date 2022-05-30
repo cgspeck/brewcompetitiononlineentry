@@ -1,6 +1,6 @@
 <?php
 
-if ($filter == "default") {
+if (is_null($filter) || ($filter == "none" || $filter == "default" || $filter == "scores")) {
 	$winner_style_set = $_SESSION['prefsStyleSet'];
 }
 
