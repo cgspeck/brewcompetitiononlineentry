@@ -267,7 +267,7 @@ if (($_SESSION['prefsProEdition'] == 0) && ($row_limits['prefsShowBestClub'] != 
 			if ($show_HM_clubs) $table_body2 .= "<td width=\"10%\" nowrap>".$bestbrewer_clubs[$key]['Places'][4]."</td>";
 			$table_body2 .= "<td width=\"1%\" nowrap>";
 			if ($section == "results") $table_body2 .= $points_clubs;
-			else $table_body2 .= number_format($points_clubs,2);
+			else $table_body2 .= number_format($points_clubs,0);
 			if ($section != "results") $table_body2 .= " <a href=\"#club-".$points_clubs."\"  tabindex=\"0\" role=\"button\" data-toggle=\"popover\" data-trigger=\"hover\" data-placement=\"auto top\" data-container=\"body\" title=\"Actual Calculated Value\" data-content=\"".$points_clubs."\"><span class=\"hidden-xs hidden-sm hidden-md hidden-print fa fa-question-circle\"></span></a>";
 			$table_body2 .= "</td>";
 			$table_body2 .= "</tr>";
@@ -348,7 +348,7 @@ if ($row_limits['prefsShowBestBrewer'] != 0) {
 			if ($show_HM) $table_body1 .= "<td width=\"10%\" nowrap>".$bestbrewer[$key]['Places'][4]."</td>";
 			$table_body1 .= "<td width=\"1%\" nowrap>";
 			if ($section == "results") $table_body1 .= $points;
-			else $table_body1 .= number_format($points,2);
+			else $table_body1 .= number_format($points,0);
 			if ($section != "results") $table_body1 .= " <a href=\"#".$points."\" tabindex=\"0\" role=\"button\" data-toggle=\"popover\" data-trigger=\"hover\" data-placement=\"auto top\" data-container=\"body\" title=\"Actual Calculated Value\" data-content=\"".$points."\"><span class=\"hidden-xs hidden-sm hidden-md hidden-print fa fa-question-circle\"></span></a>";
 			$table_body1 .= "</td>";
 			if ($_SESSION['prefsProEdition'] == 0) $table_body1 .= "<td>".$bestbrewer[$key]['Clubs']."</td>";
