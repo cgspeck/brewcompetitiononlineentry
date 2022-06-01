@@ -18,14 +18,11 @@ $pullsheet_output = "";
 
 if ($go != "all_entry_info") {
 	$table_flight_thead .= "<tr>";
-	$table_flight_thead .= "<th width=\"5%\" nowrap>".$label_pull_order."</th>";
-	$table_flight_thead .= "<th width=\"5%\">#</th>";
+	$table_flight_thead .= "<th width=\"5%\">Entry #</th>";
 	$table_flight_thead .= "<th width=\"35%\">".$label_style."</th>";
 	$table_flight_thead .= "<th width=\"35%\">".$label_info."</th>";
-	$table_flight_thead .= "<th width=\"5%\" nowrap>".$label_box."</th>";
-	if (($go != "judging_scores_bos") && ($go != "mini_bos") && ($filter != "mini_bos")) $table_flight_thead .= "<th width=\"5%\" nowrap>".$label_mini_bos."</th>";
-	$table_flight_thead .= "<th width=\"5%\" nowrap>".$label_score."</th>";
-	$table_flight_thead .= "<th width=\"5%\" nowrap>".$label_place."</th>";
+	$table_flight_thead .= "<th width=\"5%\" nowrap>Time In</th>";
+	$table_flight_thead .= "<th width=\"5%\" nowrap>Time Out</th>";
 	$table_flight_thead .= "</tr>";
 }
 
@@ -742,9 +739,6 @@ elseif (($go != "judging_scores_bos") && ($go != "mini_bos") && ($go != "all_ent
 						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
 						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
 						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
-						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
-						if ($filter != "mini_bos") $table_flight_datatables .= "{ \"asSorting\": [  ] },";
-						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
 						$table_flight_datatables .= "{ \"asSorting\": [  ] }";
 						$table_flight_datatables .= "]";
 						$table_flight_datatables .= "} );";
@@ -774,9 +768,6 @@ elseif (($go != "judging_scores_bos") && ($go != "mini_bos") && ($go != "all_ent
 
 									$table_flight_tbody .= "<tr>";
 									$table_flight_tbody .= "<td>";
-									$table_flight_tbody .= "<p>&nbsp;</p>";
-									$table_flight_tbody .= "</td>";
-									$table_flight_tbody .= "<td>";
 									if ($view == "entry")  $table_flight_tbody .= sprintf("%06s",$row_entries['id']);
 									else $table_flight_tbody .= sprintf("%06s",$row_entries['brewJudgingNumber']);
 									$table_flight_tbody .= "</td>";
@@ -803,14 +794,6 @@ elseif (($go != "judging_scores_bos") && ($go != "mini_bos") && ($go != "all_ent
 									if (!empty($row_entries['brewStaffNotes'])) $table_flight_tbody .= "<p><strong>".$label_notes.":</strong> ".$row_entries['brewStaffNotes']."</p>";
 
 									$table_flight_tbody .= "</td>";
-									$table_flight_tbody .= "<td>";
-									$table_flight_tbody .= $row_entries['brewBoxNum'];;
-									$table_flight_tbody .= "</td>";
-									if ($filter != "mini_bos") {
-										$table_flight_tbody .= "<td>";
-										$table_flight_tbody .= "<p class=\"box_small\">";
-										$table_flight_tbody .= "</td>";
-									}
 									$table_flight_tbody .= "<td>";
 									$table_flight_tbody .= "<p>&nbsp;</p>";
 									$table_flight_tbody .= "</td>";
