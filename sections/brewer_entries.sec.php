@@ -339,13 +339,13 @@ do {
 		$entry_output .= $score;
 		$entry_output .= "</td>";
 
-		$entry_output .= "<td class=\"hidden-xs\">";
-		if (minibos_check($row_log['id'],$judging_scores_db_table)) {
-			if ($action != "print") $entry_output .= "<span class =\"fa fa-lg fa-check text-success\"></span>";
-			else $entry_output .= $label_yes;
-		}
-		else $entry_output .= "&nbsp;";
-		$entry_output .= "</td>";
+		// $entry_output .= "<td class=\"hidden-xs\">";
+		// if (minibos_check($row_log['id'],$judging_scores_db_table)) {
+		// 	if ($action != "print") $entry_output .= "<span class =\"fa fa-lg fa-check text-success\"></span>";
+		// 	else $entry_output .= $label_yes;
+		// }
+		// else $entry_output .= "&nbsp;";
+		// $entry_output .= "</td>";
 
 		$entry_output .= "<td>";
 		$entry_output .= $medal_winner;
@@ -522,21 +522,21 @@ if (($totalRows_log > 0) && ($entry_window_open >= 1)) {
 
 				null,
 				<?php if ($show_scores) { ?>
-				null,
+					null,
 				<?php } ?>
 				null,
 				null,
 				<?php if (!$show_scores) { ?>
 					null,
-				null,
-				null,
-				null,
+					null,
+					null,
+					null,
 				<?php if ($multiple_bottle_ids) { ?>{ "asSorting": [  ] },<?php } ?>
 				<?php } ?>
 				<?php if ($show_scores) { ?>
-				null,
-				{ "asSorting": [  ] },
-				null,
+					null,
+					//{ "asSorting": [  ] },
+					null,
 				<?php } ?>
 				<?php if ($action != "print") { ?>
 				{ "asSorting": [  ] }
@@ -563,7 +563,7 @@ if (($totalRows_log > 0) && ($entry_window_open >= 1)) {
     <?php } ?>
   	<?php if ($show_scores) { ?>
   	<th><?php echo $label_score; ?></th>
-    <th width="5%" class="hidden-xs" nowrap><?php echo $label_mini_bos; ?></th>
+    <!-- <th width="5%" class="hidden-xs" nowrap>Mini-BOS</th> -->
   	<th width="5%"><?php echo $label_winner; ?></th>
   	<?php } ?>
   	<?php if ((!$show_scores) && ($multiple_bottle_ids)) { ?>
