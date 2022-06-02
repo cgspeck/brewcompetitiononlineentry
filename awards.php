@@ -795,7 +795,7 @@ if (($display_to_admin) || ($display_to_public)) {
 					if ($show_4th) $table_body1 .= "<td class=\"no-bottom-border\" width=\"5%\" nowrap>".$bestbrewer[$key]['Places'][3]."</td>";
 					if ($show_HM) $table_body1 .= "<td class=\"no-bottom-border\" width=\"5%\" nowrap>".$bestbrewer[$key]['Places'][4]."</td>";
 					$table_body1 .= "<td align=\"right\" class=\"no-bottom-border\" width=\"5%\" nowrap>";
-					$table_body1 .= number_format($points,7);
+					$table_body1 .= number_format($points,0);
 					$table_body1 .= "</td>";
 					if ($_SESSION['prefsProEdition'] == 0) $table_body1 .= "<td class=\"no-bottom-border\">".truncate_string($bestbrewer[$key]['Clubs'],20," ")."</td>";
 					$table_body1 .= "</tr>";
@@ -912,7 +912,7 @@ if (($display_to_admin) || ($display_to_public)) {
 					if ($show_4th_clubs) $table_body2 .= "<td class=\"no-bottom-border\" width=\"10%\" nowrap>".$bestbrewer_clubs[$key]['Places'][3]."</td>";
 					if ($show_HM_clubs) $table_body2 .= "<td class=\"no-bottom-border\" width=\"10%\" nowrap>".$bestbrewer_clubs[$key]['Places'][4]."</td>";
 					$table_body2 .= "<td align=\"right\" class=\"no-bottom-border\" width=\"1%\" nowrap>";
-					$table_body2 .= number_format($points_clubs,7);
+					$table_body2 .= number_format($points_clubs,0);
 					$table_body2 .= "</td>";
 					$table_body2 .= "</tr>";
 
