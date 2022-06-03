@@ -897,7 +897,7 @@ $entry_info_text_042 = "If you live in the United States, please note that it is
 $entry_info_text_043 = "Entry bottles accepted at our drop-off locations from";
 $entry_info_text_044 = "Map to";
 $entry_info_text_045 = "Select/Tap for Required Entry Info";
-$entry_info_text_046 = "If a style's name is hyperlinked, it has specific entry requirements. Select or tap on the name to view the subcategory's requirements.";
+$entry_info_text_046 = "If a style's name is hyperlinked, it has specific entry requirements. Select or tap on the name to view the style's requirements.";
 
 /**
  * ------------------------------------------------------------------------
