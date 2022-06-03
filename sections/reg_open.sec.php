@@ -86,8 +86,14 @@ if (($registration_open == 1) && ($judge_window_open == 1) && (!isset($_SESSION[
 
 if (($registration_open == 1) && (!isset($_SESSION['brewerBreweryName'])) && (isset($_SESSION['loginUsername']))) $page_info1 .= sprintf("<p>%s <a href=\"%s\">%s</a> %s</p>",$reg_open_text_006,build_public_url("list","default","default","default",$sef,$base_url),$reg_open_text_007,$reg_open_text_008);
 
-if ($registration_open != 1) $page_info1 .= sprintf("<p>%s %s.</p>",$reg_open_text_009,$judge_open);
-
+if (isset($_SESSION["brewerID"])) {
+	$page_info1 .= sprintf(
+		"<p>If you would like to volunteer to be a competition staff member, please <a href='/brewer/account/edit/%s'>update your account</a> to indicate that you wish to be a part of the competition staff.</p>",
+		$_SESSION["brewerID"]
+	);
+} else {
+	$page_info1 .= "<p>If you would like to volunteer to be a competition staff member, please <a href='/register'>register</a> or login and update your account to indicate that you wish to be a part of the competition staff.</p>";
+}
 
 if (($entry_window_open == 1) && ($show_entries)) {
 	$header1_2 .= sprintf("<h2>%s <span class='text-success'>%s</a></h2>",$reg_open_text_010,$reg_open_text_001);
