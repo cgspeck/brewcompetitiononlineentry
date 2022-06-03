@@ -66,8 +66,16 @@ else {
 }
 
 if ($registration_open < 2) {
-$header_vol_1_2 .= sprintf("<h2%s</h2>",$label_staff);
-$page_info_vol_2 .= sprintf("<p>%s",$volunteers_text_009, build_public_url("contact","default","default","default",$sef,$base_url), $volunteers_text_010);
+	$header_vol_1_2 .= sprintf("<h2%s</h2>",$label_staff);
+
+	if (isset($_SESSION["brewerID"])) {
+		$page_info_vol_2 .= sprintf(
+			"<p>If you would like to volunteer to be a competition staff member, please <a href='/brewer/account/edit/%s'>update your account</a> to indicate that you wish to be a part of the competition staff.</p>",
+			$_SESSION["brewerID"]
+		);
+	} else {
+		$page_info_vol_2 .= "<p>If you would like to volunteer to be a competition staff member, please <a href='/register'>register</a> or login and update your account to indicate that you wish to be a part of the competition staff.</p>";
+	}
 }
 
 if (!empty($row_contest_info['contestVolunteers'])) {
