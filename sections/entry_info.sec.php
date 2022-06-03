@@ -145,7 +145,7 @@ if ($show_entries) {
 
 			if (!empty($row_limits['prefsUserSubCatLimit'])) {
 				$page_info16 .= "<p>";
-				if ($row_limits['prefsUserSubCatLimit'] == 1) $page_info16 .= "Maximum of 2 entries per category per brewer. Within this limit, only one entry per style.";
+				if ($row_limits['prefsUserSubCatLimit'] == 1) $page_info16 .= "Maximum of 2 entries per category per brewer. Within this limit, only one entry per style";
 				else $page_info16 .= sprintf("%s %s %s",$entry_info_text_021,$row_limits['prefsUserSubCatLimit'],$entry_info_text_025);
 				if (!empty($row_limits['prefsUSCLExLimit'])) $page_info16 .= sprintf(" &ndash; %s",$entry_info_text_026);
 				$page_info16 .= ".";

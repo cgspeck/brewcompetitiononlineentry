@@ -289,6 +289,4 @@ if ($row_scored_entries['count'] > 0) {
 
 else echo sprintf("<p>%s</p>",$winners_text_001);
 ?>
-
 <!-- Public Page Rebuild completed 08.26.15 -->
-
