@@ -136,6 +136,14 @@ if ($section == "past-winners") {
     <meta property="og:image" content="<?php echo $base_url."user_images/".$_SESSION['contestLogo']?>" />
 <?php } ?>
     <meta property="og:url" content="<?php echo "http" . ((!empty($_SERVER['HTTPS'])) ? "s://" : "://") . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6W28TE14JN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-6W28TE14JN');
+    </script>
 </head>
 <body>
 
