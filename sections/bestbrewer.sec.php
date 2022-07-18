@@ -384,30 +384,6 @@ if ($section == "default") $page_info_1 .= "<p>".$best_brewer_text_002."</p>";
 		</div>
 		</div>
 	</div><!-- ./row -->
-<div class="collapse" id="scoreMethodCollapse">
-  <div class="well">
-    <p><?php echo $best_brewer_text_004; ?></p>
-		<ul>
-			<li><?php echo addOrdinalNumberSuffix(1)." ".$label_place.": ".$row_bb_prefs['prefsFirstPlacePts']; ?></li>
-			<li><?php echo addOrdinalNumberSuffix(2)." ".$label_place.": ".$row_bb_prefs['prefsSecondPlacePts']; ?></li>
-			<li><?php echo addOrdinalNumberSuffix(3)." ".$label_place.": ".$row_bb_prefs['prefsThirdPlacePts']; ?></li>
-			<?php if ($row_bb_prefs['prefsFourthPlacePts'] > 0) { ?><li><?php echo addOrdinalNumberSuffix(4)." ".$label_place.": ".$row_bb_prefs['prefsFourthPlacePts']; ?></li><?php } ?>
-			<?php if ($row_bb_prefs['prefsHMPts'] > 0) { ?><li><?php echo $best_brewer_text_001.": ".$row_bb_prefs['prefsHMPts']; ?></li><?php } ?>
-		</ul>
-	<?php if (!empty($row_bb_prefs['prefsTieBreakRule1'])) { ?>
-	<p><?php echo $best_brewer_text_005; ?></p>
-		<ol>
-			<li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule1']); ?></li>
-			<?php if (!empty($row_bb_prefs['prefsTieBreakRule2'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule2']); ?></li><?php } ?>
-			<?php if (!empty($row_bb_prefs['prefsTieBreakRule3'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule3']); ?></li><?php } ?>
-			<?php if (!empty($row_bb_prefs['prefsTieBreakRule4'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule4']); ?></li><?php } ?>
-			<?php if (!empty($row_bb_prefs['prefsTieBreakRule5'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule5']); ?></li><?php } ?>
-			<?php if (!empty($row_bb_prefs['prefsTieBreakRule6'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule6']); ?></li><?php } ?>
-		</ol>
-	<?php } ?>
-	</ul>
-  </div>
-</div>
 <?php } if ($row_limits['prefsShowBestBrewer'] != 0) { ?>
 <div class="bcoem-winner-table">
 	<?php echo $header1_1; ?>
@@ -436,35 +412,6 @@ if ($section == "default") $page_info_1 .= "<p>".$best_brewer_text_002."</p>";
     <?php echo $page_info_1; ?>
 </div>
 <?php } if ($section == "results")  { ?>
-<h4>
-	<?php
-				if ($row_limits['prefsShowBestBrewer'] != 0) echo $row_bb_prefs['prefsBestBrewerTitle'];
-				if (($row_limits['prefsShowBestClub'] != 0) && ($row_limits['prefsShowBestBrewer'] != 0)) echo " / ";
-				if ($row_limits['prefsShowBestClub'] != 0) echo $row_bb_prefs['prefsBestClubTitle'];
-				echo " ".$best_brewer_text_003;
-				?>
-</h4>
-<div class="small">
-<p><?php echo $best_brewer_text_004; ?></p>
-	<ul>
-		<li><?php echo addOrdinalNumberSuffix(1)." ".$label_place.": ".$row_bb_prefs['prefsFirstPlacePts']; ?></li>
-		<li><?php echo addOrdinalNumberSuffix(2)." ".$label_place.": ".$row_bb_prefs['prefsSecondPlacePts']; ?></li>
-		<li><?php echo addOrdinalNumberSuffix(3)." ".$label_place.": ".$row_bb_prefs['prefsThirdPlacePts']; ?></li>
-		<?php if ($row_bb_prefs['prefsFourthPlacePts'] > 0) { ?><li><?php echo addOrdinalNumberSuffix(4)." ".$label_place.": ".$row_bb_prefs['prefsFourthPlacePts']; ?></li><?php } ?>
-		<?php if ($row_bb_prefs['prefsHMPts'] > 0) { ?><li><?php echo $best_brewer_text_001.": ".$row_bb_prefs['prefsHMPts']; ?></li><?php } ?>
-	</ul>
-	<?php if (!empty($row_bb_prefs['prefsTieBreakRule1'])) { ?>
-	<p><?php echo $best_brewer_text_005; ?></p>
-	<ol>
-		<li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule1']); ?></li>
-		<?php if (!empty($row_bb_prefs['prefsTieBreakRule2'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule2']); ?></li><?php } ?>
-		<?php if (!empty($row_bb_prefs['prefsTieBreakRule3'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule3']); ?></li><?php } ?>
-		<?php if (!empty($row_bb_prefs['prefsTieBreakRule4'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule4']); ?></li><?php } ?>
-		<?php if (!empty($row_bb_prefs['prefsTieBreakRule5'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule5']); ?></li><?php } ?>
-		<?php if (!empty($row_bb_prefs['prefsTieBreakRule6'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule6']); ?></li><?php } ?>
-	</ol>
-	<?php } ?>
-</div>
 <?php } if ($section == "default") { ?>
 <div class="modal fade" id="scoreMethod" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
@@ -472,34 +419,8 @@ if ($section == "default") $page_info_1 .= "<p>".$best_brewer_text_002."</p>";
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">
-				<?php
-				if ($row_limits['prefsShowBestBrewer'] != 0) echo $row_bb_prefs['prefsBestBrewerTitle'];
-				if (($row_limits['prefsShowBestClub'] != 0) && ($row_limits['prefsShowBestBrewer'] != 0)) echo " / ";
-				if ($row_limits['prefsShowBestClub'] != 0) echo $row_bb_prefs['prefsBestClubTitle'];
-				echo " ".$best_brewer_text_003;
-				?>
+				This content has been removed.
 				</h4>
-			</div>
-			<div class="modal-body">
-				<p><?php echo $best_brewer_text_004; ?></p>
-				<ul>
-					<li><?php echo addOrdinalNumberSuffix(1)." ".$label_place.": ".$row_bb_prefs['prefsFirstPlacePts']; ?></li>
-					<li><?php echo addOrdinalNumberSuffix(2)." ".$label_place.": ".$row_bb_prefs['prefsSecondPlacePts']; ?></li>
-					<li><?php echo addOrdinalNumberSuffix(3)." ".$label_place.": ".$row_bb_prefs['prefsThirdPlacePts']; ?></li>
-					<?php if ($row_bb_prefs['prefsFourthPlacePts'] > 0) { ?><li><?php echo addOrdinalNumberSuffix(4)." ".$label_place.": ".$row_bb_prefs['prefsFourthPlacePts']; ?></li><?php } ?>
-					<?php if ($row_bb_prefs['prefsHMPts'] > 0) { ?><li><?php echo $best_brewer_text_001.": ".$row_bb_prefs['prefsHMPts']; ?></li><?php } ?>
-				</ul>
-				<?php if (!empty($row_bb_prefs['prefsTieBreakRule1'])) { ?>
-				<p><?php echo $best_brewer_text_005; ?></p>
-				<ol>
-					<li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule1']); ?></li>
-					<?php if (!empty($row_bb_prefs['prefsTieBreakRule2'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule2']); ?></li><?php } ?>
-					<?php if (!empty($row_bb_prefs['prefsTieBreakRule3'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule3']); ?></li><?php } ?>
-					<?php if (!empty($row_bb_prefs['prefsTieBreakRule4'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule4']); ?></li><?php } ?>
-					<?php if (!empty($row_bb_prefs['prefsTieBreakRule5'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule5']); ?></li><?php } ?>
-					<?php if (!empty($row_bb_prefs['prefsTieBreakRule6'])) { ?><li><?php echo tiebreak_rule($row_bb_prefs['prefsTieBreakRule6']); ?></li><?php } ?>
-				</ol>
-				<?php } ?>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
