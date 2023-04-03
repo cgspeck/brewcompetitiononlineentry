@@ -410,9 +410,8 @@ $style_sets = array(
 		"style_set_mead" => array("19"),
 		"style_set_cider" => array("20"),
 		"style_set_category_end" => "21"
-	)
+	),
 
-	/*
 	array(
 		"id" => 6,
 		"style_set_name" => "NWCiderCup",
@@ -437,7 +436,6 @@ $style_sets = array(
 		"style_set_cider" => array("C1","C2","C3","C4","C5","C6","C7","C8","C9"),
 		"style_set_category_end" => "0"
 	)
-	*/
 
 );
 ?>

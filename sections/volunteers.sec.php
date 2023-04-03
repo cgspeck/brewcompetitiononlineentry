@@ -78,10 +78,12 @@ if ($registration_open < 2) {
 		$page_info_vol_2 .= "<p>If you would like to volunteer to be a competition staff member, please <a href='/register'>register</a> or login and update your account to indicate that you wish to be a part of the competition staff.</p>";
 	}
 	
-	
-	do {
-		if ($row_judging1['judgingLocType'] == 2) $staff_locations .= sprintf("<li>%s &ndash; %s</li>",$row_judging1['judgingLocName'],getTimeZoneDateTime($_SESSION['prefsTimeZone'], $row_judging1['judgingDate'], $_SESSION['prefsDateFormat'],  $_SESSION['prefsTimeFormat'], "long", "date-time"));
-	} while($row_judging1 = mysqli_fetch_assoc($judging1));
+	if ($row_judging1) {
+		do {
+			if ($row_judging1['judgingLocType'] == 2) $staff_locations .= sprintf("<li>%s &ndash; %s</li>",$row_judging1['judgingLocName'],getTimeZoneDateTime($_SESSION['prefsTimeZone'], $row_judging1['judgingDate'], $_SESSION['prefsDateFormat'],  $_SESSION['prefsTimeFormat'], "long", "date-time"));
+		} while($row_judging1 = mysqli_fetch_assoc($judging1));
+	}
+		
 
 	if (!empty($staff_locations)) {
 		$page_info_vol_2 .= sprintf("<p>%s</p>",$volunteers_text_010);
