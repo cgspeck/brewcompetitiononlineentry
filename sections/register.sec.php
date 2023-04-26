@@ -648,7 +648,7 @@ if ($go == "default") {  ?>
 		</div>
 	</div><!-- ./Form Group -->
     <?php } // END if (($_SESSION['prefsProEdition'] == 0) || (($_SESSION['prefsProEdition'] == 1) && ($go == "entrant"))) ?>
-    <?php if (($_SESSION['prefsProEdition'] == 0) || (($_SESSION['prefsProEdition'] == 1) && ($go != "entrant"))) { ?>
+    <?php if ($_SESSION['prefsProEdition'] == 0) { ?>
 	<div class="form-group"><!-- Form Group REQUIRED Select -->
         <label for="brewerClubs" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 control-label"><?php echo $label_club; ?></label>
         <div class="col-lg-9 col-md-6 col-sm-8 col-xs-12">
