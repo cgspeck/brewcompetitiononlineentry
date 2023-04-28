@@ -392,6 +392,7 @@ if (($admin_role) || ((($judging_past == 0) && ($registration_open == 2) && ($en
                     // Make various queries for circuit export
                     if ($tb == "circuit") {
 
+<<<<<<< HEAD
                         if ($filter != "default") {
 
                             $query_disp_archive_winners = sprintf("SELECT * FROM %s WHERE archiveSuffix='%s'",$prefix."archive",$filter);
@@ -401,6 +402,8 @@ if (($admin_role) || ((($judging_past == 0) && ($registration_open == 2) && ($en
 
                         }
                         
+=======
+>>>>>>> 7d20d535 (Add Circuit CSV Download)
                         $bos_for_entry = 0;
                         $pro_am_for_entry = 0;
                         
@@ -458,6 +461,10 @@ if (($admin_role) || ((($judging_past == 0) && ($registration_open == 2) && ($en
 
                     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7d20d535 (Add Circuit CSV Download)
                     do {
                         
                         $brewerFirstName = "";

@@ -19,6 +19,7 @@ $bb_bos_show = FALSE;
 
 $bestbrewer = array();
 $bestbrewer_clubs = array();
+$bb_circuit_array = array();
 
 include(DB.'scores_bestbrewer.db.php');
 
@@ -331,6 +332,8 @@ if (($_SESSION['prefsProEdition'] == 0) && ($row_limits['prefsShowBestClub'] != 
 	$table_head2 .= "</tr>";
 }
 
+
+
 if ($row_limits['prefsShowBestBrewer'] != 0) {
 	
 	$bb_count = 0;
@@ -347,10 +350,13 @@ if ($row_limits['prefsShowBestBrewer'] != 0) {
 		}
 		else $bb_display_position = "";
 		if ($bb_position <= $bb_max_position) {
+
+			$bb_circuit_array[$key] = $bb_position;
+
 			$table_body1 .= "<tr>";
 			$table_body1 .= "<td width=\"1%\" nowrap><a name=\"".$points."\"></a>".$bb_display_position."</td>";
 			$table_body1 .= "<td width=\"20%\">".$bestbrewer[$key]['Name'];
-			if (array_sum($bestbrewer[$key]['TypeBOS']) > 0) $table_body1 .= sprintf("<small><em><br>** %s %s **</em></small>",$label_bos,$label_participant);
+			if ($bestbrewer[$key]['Places'][0] > 0) $table_body1 .= sprintf("<small><em><br>%s %s</em></small>",$label_bos,$label_participant);
 			$table_body1 .= "</td>";
 			$table_body1 .= "<td width=\"10%\" nowrap>".$bestbrewer[$key]['Places'][0]."</td>";
 			$table_body1 .= "<td width=\"10%\" nowrap>".$bestbrewer[$key]['Places'][1]."</td>";
@@ -371,9 +377,7 @@ if ($row_limits['prefsShowBestBrewer'] != 0) {
 // --------------------------------------------------------------
 // Display
 // --------------------------------------------------------------
-
 ?>
-
 <?php if ($section == "admin") { ?>
 
 	<div class="row">
