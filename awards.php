@@ -776,7 +776,7 @@ if (($display_to_admin) || ($display_to_public)) {
 			$slides_bos .= "<h1 class=\"r-fit-text tight\">".$row_bb_prefs['prefsBestBrewerTitle']."</h1>";
 
 			$slides_bos .= "<p class=\"entry-count\">";
-			$slides_bos .= sprintf(" %s %s <span class=\"small entry-count\">[<a data-fancybox data-src=\"#scoring-method\" href=\"javascript:;\">%s</a>]</span>", get_participant_count('received-entrant'), ucwords($best_brewer_text_000), $best_brewer_text_003);
+			$slides_bos .= sprintf(" %s %s <span class=\"small entry-count\"></span>", get_participant_count('received-entrant'), ucwords($best_brewer_text_000));
 			$slides_bos .= "</p>";
 
 			$slides_bos .= "<table style=\"width: 100%; font-size: .55em;\">";
@@ -893,7 +893,7 @@ if (($display_to_admin) || ($display_to_public)) {
 			$slides_bos .= "<h1 class=\"r-fit-text tight\">".$row_bb_prefs['prefsBestClubTitle']."</h1>";
 
 			$slides_bos .= "<p class=\"entry-count\">";
-			$slides_bos .= sprintf(" %s %s <span class=\"small\">[<a data-fancybox data-src=\"#scoring-method\" href=\"javascript:;\">%s</a>]</span>", get_participant_count('received-club'), ucwords($best_brewer_text_014), $best_brewer_text_003);
+			$slides_bos .= sprintf(" %s %s <span class=\"small\"></span>", get_participant_count('received-club'), ucwords($best_brewer_text_014));
 			$slides_bos .= "</p>";
 
 			$slides_bos .= "<table style=\"width: 100%; font-size: .55em;\">";
@@ -908,29 +908,6 @@ if (($display_to_admin) || ($display_to_public)) {
 			$slides_bos .= "</section>\n";
 
 		} // end if (($_SESSION['prefsProEdition'] == 0) && ($row_limits['prefsShowBestClub'] != 0))
-
-		$slides_bos .= "<div style=\"display: none; height: 75%; width: 75%;\" class=\"fancy\" id=\"scoring-method\">";
-		$slides_bos .= "<h2 class=\"fancy-h2\">".$best_brewer_text_003."</h2>";
-		$slides_bos .= "<p class=\"bold-text\">".$best_brewer_text_004."</p>";
-		$slides_bos .= "<ul class=\"fancy-list\">";
-		$slides_bos .= "<li>".addOrdinalNumberSuffix(1)." ".$label_place.": ".$row_bb_prefs['prefsFirstPlacePts']."</li>";
-		$slides_bos .= "<li>".addOrdinalNumberSuffix(2)." ".$label_place.": ".$row_bb_prefs['prefsSecondPlacePts']."</li>";
-		$slides_bos .= "<li>".addOrdinalNumberSuffix(3)." ".$label_place.": ".$row_bb_prefs['prefsThirdPlacePts']."</li>";
-		if ($row_bb_prefs['prefsFourthPlacePts'] > 0) $slides_bos .= "<li>".addOrdinalNumberSuffix(4)." ".$label_place.": ".$row_bb_prefs['prefsFourthPlacePts']."</li>";
-		if ($row_bb_prefs['prefsHMPts'] > 0) $slides_bos .= "<li>".$best_brewer_text_001.": ".$row_bb_prefs['prefsHMPts']."</li>";
-		$slides_bos .= "</ul>";
-		if (!empty($row_bb_prefs['prefsTieBreakRule1'])) {
-			$slides_bos .= "<p class=\"bold-text\">".$best_brewer_text_005."</p>";
-			$slides_bos .= "<ol class=\"fancy-list\">";
-			$slides_bos .= "<li>".tiebreak_rule($row_bb_prefs['prefsTieBreakRule1'])."</li>";
-			if (!empty($row_bb_prefs['prefsTieBreakRule2'])) $slides_bos .= "<li>".tiebreak_rule($row_bb_prefs['prefsTieBreakRule2'])."</li>";
-			if (!empty($row_bb_prefs['prefsTieBreakRule3'])) $slides_bos .= "<li>".tiebreak_rule($row_bb_prefs['prefsTieBreakRule3'])."</li>";
-			if (!empty($row_bb_prefs['prefsTieBreakRule4'])) $slides_bos .= "<li>".tiebreak_rule($row_bb_prefs['prefsTieBreakRule4'])."</li>";
-			if (!empty($row_bb_prefs['prefsTieBreakRule5'])) $slides_bos .= "<li>".tiebreak_rule($row_bb_prefs['prefsTieBreakRule5'])."</li>";
-			if (!empty($row_bb_prefs['prefsTieBreakRule6'])) $slides_bos .= "<li>".tiebreak_rule($row_bb_prefs['prefsTieBreakRule6'])."</li>";
-			$slides_bos .= "</ol>";
-		}
-		$slides_bos .= "</div>";
 
 	} // end if (($row_limits['prefsShowBestBrewer'] != 0) || ($row_limits['prefsShowBestClub'] != 0))
 ?>
