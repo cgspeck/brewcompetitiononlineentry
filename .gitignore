@@ -22,3 +22,4 @@ ajax/autosave.ajax.php
 css/anomalus.css
 config.local.php
 .htpassword
+private
