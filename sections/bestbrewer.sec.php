@@ -280,7 +280,6 @@ if (($_SESSION['prefsProEdition'] == 0) && ($row_limits['prefsShowBestClub'] != 
 			$table_body2 .= "<td width=\"1%\" nowrap>";
 			if ($section == "results") $table_body2 .= number_format($points_clubs,0);
 			else $table_body2 .= number_format($points_clubs,0);
-			if ($section != "results") $table_body2 .= " <a href=\"#club-".$points_clubs."\"  tabindex=\"0\" role=\"button\" data-toggle=\"popover\" data-trigger=\"hover\" data-placement=\"auto top\" data-container=\"body\" title=\"Actual Calculated Value\" data-content=\"".$points_clubs."\"><span class=\"hidden-xs hidden-sm hidden-md hidden-print fa fa-question-circle\"></span></a>";
 			$table_body2 .= "</td>";
 			$table_body2 .= "</tr>";
 
@@ -361,7 +360,6 @@ if ($row_limits['prefsShowBestBrewer'] != 0) {
 			$table_body1 .= "<td width=\"1%\" nowrap>";
 			if ($section == "results") $table_body1 .= number_format($points, 0);
 			else $table_body1 .= number_format($points,0);
-			if ($section != "results") $table_body1 .= " <a href=\"#".$points."\" tabindex=\"0\" role=\"button\" data-toggle=\"popover\" data-trigger=\"hover\" data-placement=\"auto top\" data-container=\"body\" title=\"Actual Calculated Value\" data-content=\"".$points."\"><span class=\"hidden-xs hidden-sm hidden-md hidden-print fa fa-question-circle\"></span></a>";
 			$table_body1 .= "</td>";
 			if ($_SESSION['prefsProEdition'] == 0) $table_body1 .= "<td>".$bestbrewer[$key]['Clubs']."</td>";
 			$table_body1 .= "</tr>";
@@ -369,8 +367,6 @@ if ($row_limits['prefsShowBestBrewer'] != 0) {
 		else break;
 	}
 }
-
-if ($section == "default") $page_info_1 .= "<p>".$best_brewer_text_002."</p>";
 
 // --------------------------------------------------------------
 // Display
@@ -445,4 +441,3 @@ if ($section == "default") $page_info_1 .= "<p>".$best_brewer_text_002."</p>";
 	</div>
 </div>
 <?php } ?>
-<!-- Public Page Rebuild completed 08.26.15 -->
