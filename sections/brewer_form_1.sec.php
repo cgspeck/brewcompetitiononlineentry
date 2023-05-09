@@ -50,17 +50,6 @@
     <input type="hidden" name="brewerProAm" value="0">
 <?php } ?>
 
-<section id="aha-number">
-    <div class="form-group">
-        <label for="brewerAHA" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 control-label"><?php echo $label_aha_number; ?></label>
-        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-            
-            <input class="form-control" id="brewerAHA" name="brewerAHA" type="text" value="<?php if ($action == "edit") echo $row_brewer['brewerAHA']; ?>" placeholder="">
-            <span id="ahaProAmText" class="help-block"><?php echo $brewer_text_003; ?></span>
-        </div>
-    </div>
-</section>
-
 <section id="staff-preferences">
     <div class="form-group">
         <label for="brewerStaff" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 control-label"><?php echo $label_staff; ?></label>

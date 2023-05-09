@@ -243,8 +243,7 @@ if ($section != "admin") {
 			if ($discount) {
 				$page_info100 .= "<div class=\"bcoem-sidebar-panel\">";
 				$page_info100 .= "<small><em class=\"text-muted\">";
-				if (NHC) $page_info100 .= "* As an AHA member, your entry fees are ";
-				else $page_info100 .= "* Fees discounted to ";
+				$page_info100 .= "* Fees discounted to ";
 				$page_info100 .= $currency_symbol.number_format($_SESSION['contestEntryFeePasswordNum'],2)." per entry.";
 				$page_info100 .= "</em></small>";
 				$page_info100 .= "</div>";
