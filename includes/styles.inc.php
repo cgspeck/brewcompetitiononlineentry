@@ -403,12 +403,13 @@ $style_sets = array(
 			"17" => "Fruit and Spice Beer",
 			"18" => "Specialty Beer",
 			"19" => "Mead",
-			"20" => "Cider and Perry"
+			"20" => "Cider and Perry",
+			"21" => "Specialty (Custom Style)"
 		),
 		"style_set_beer_end" => "18",
 		"style_set_mead" => array("19"),
 		"style_set_cider" => array("20"),
-		"style_set_category_end" => "20"
+		"style_set_category_end" => "21"
 	)
 
 );
