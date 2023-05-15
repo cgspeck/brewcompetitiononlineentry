@@ -60,7 +60,6 @@ else { // THIS ELSE ENDS at the end of the script
 	else $totalRows_log = $totalRows_log;
 	if ($go != "default") {
 		
-		asort($countries);
 		$country_select = "";
 		foreach ($countries as $country) {
 			$country_select .= "<option value=\"".$country."\" ";
