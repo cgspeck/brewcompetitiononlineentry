@@ -1,4 +1,7 @@
 <?php
+// auto-enrol all judges into the single judging session
+mysqli_query($connection, "UPDATE brewer SET brewerJudgeLocation = (SELECT CONCAT('Y-', id) FROM judging_locations ORDER BY id ASC LIMIT 1) WHERE brewerJudge = 'Y';") or die (mysqli_error($connection));
+
 // @single
 // Query based upon unique variable (id of record from "judging_locations" table)
 $query_table_location = sprintf("SELECT * FROM %s WHERE id='%s'",$prefix."judging_flights", $location);
