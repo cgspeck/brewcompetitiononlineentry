@@ -17,7 +17,8 @@ include_once (DB.'dropoff.db.php');
 
 if ($section != "step2") {
 
-    if (($row_brewer['brewerCountry'] == "United States")) $us_phone = TRUE; else $us_phone = FALSE;
+    if (($row_brewer['brewerCountry'] == "United States")) $us_phone = TRUE; 
+    else $us_phone = FALSE;
 
     $phone1 = $row_brewer['brewerPhone1'];
     $phone2 = $row_brewer['brewerPhone2'];
@@ -85,7 +86,7 @@ else {
     if ($section == "brewer") $form_action .= "list";
     else $form_action .= "admin";
     $form_action .= "&amp;go=".$go."&amp;filter=".$filter."&amp;action=".$action."&amp;dbTable=".$brewer_db_table;
-   // if ($table_assignment) $form_action .= "&amp;view=assigned";
+    // if ($table_assignment) $form_action .= "&amp;view=assigned";
     if ($action == "edit") $form_action .= "&amp;id=".$row_brewer['id'];
 }
 
@@ -136,8 +137,6 @@ if (($_SESSION['prefsProEdition'] == 1) && ($show_judge_steward_fields)) {
         
         if (!empty($row_brewer['brewerAssignment'])) $affiliated_orgs = json_decode($row_brewer['brewerAssignment'],true);
 
-        if (!empty($affiliated_orgs)) {
-
             do {
 
                 if (!empty($row_organizations['brewerBreweryName'])) $org_array[] = $row_organizations['brewerBreweryName'];   
@@ -145,12 +144,11 @@ if (($_SESSION['prefsProEdition'] == 1) && ($show_judge_steward_fields)) {
                 
                 if ($section != "step2") {
 
-                    if (is_array($affiliated_orgs)) {
+                    if ((!empty($affiliated_orgs) && (is_array($affiliated_orgs)))) {
 
                         if ((isset($affiliated_orgs['affilliated'])) && (is_array($affiliated_orgs['affilliated']))) {
                             if (in_array($row_organizations['brewerBreweryName'],$affiliated_orgs['affilliated'])) $org_selected_dropdown = "SELECTED";
                         }
-
 
                         if ((isset($affiliated_orgs['affilliatedOther'])) && (is_array($affiliated_orgs['affilliatedOther']))) {
                             if (in_array($row_organizations['brewerBreweryName'],$affiliated_orgs['affilliatedOther'])) $org_selected_dropdown = "SELECTED";
@@ -164,7 +162,6 @@ if (($_SESSION['prefsProEdition'] == 1) && ($show_judge_steward_fields)) {
 
             } while($row_organizations = mysqli_fetch_assoc($organizations));
 
-        }
 
         $org_array = array();
 
@@ -193,6 +190,8 @@ if ($section != "step2") {
         if ($security_question[$value] != $_SESSION['userQuestion']) $security .= "<div class=\"radio\"><label><input type=\"radio\" name=\"userQuestion\" value=\"".$security_question[$value]."\" data-error=\"".$brewer_text_033."\" required> ".$security_question[$value]."</label></div>";
     }
 }
+
+asort($countries);
 
 $country_select = "";
 foreach ($countries as $country) {
@@ -330,6 +329,7 @@ if ((isset($row_judging3)) && (!empty($row_judging3))) {
         }
 
     }  while ($row_judging3 = mysqli_fetch_assoc($judging3)); 
+
 }
 
 if (($_SESSION['prefsProEdition'] == 1) && (!$show_judge_steward_fields)) $pro_entrant = TRUE;
