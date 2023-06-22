@@ -867,7 +867,7 @@ elseif (($go != "judging_scores_bos") && ($go != "mini_bos") && ($go != "all_ent
 				}
 				else $pullsheet_output .= $table_flight;
 
-				$pullsheet_output .= "<div style=\"page-break-after:always;\"></div>";
+				// $pullsheet_output .= "<div style=\"page-break-after:always;\"></div>";
 
 			} while ($row_tables = mysqli_fetch_assoc($tables));
 
@@ -1218,7 +1218,7 @@ elseif (($go != "judging_scores_bos") && ($go != "mini_bos") && ($go != "all_ent
 					else $pullsheet_output .= $table_flight;
 					//if (($flights > 0) && ($filter != "mini_bos")) $pullsheet_output .= "<div style=\"page-break-after:always;\"></div>";
 					//if (($flights == 0) || ($filter == "mini_bos")) $pullsheet_output .= "<div style=\"page-break-after:always;\"></div>";
-					$pullsheet_output .= "<div style=\"page-break-after:always;\"></div>";
+					// $pullsheet_output .= "<div style=\"page-break-after:always;\"></div>";
 
 				} while ($row_tables = mysqli_fetch_assoc($tables));
 
@@ -1613,7 +1613,7 @@ elseif (($go != "judging_scores_bos") && ($go != "mini_bos") && ($go != "all_ent
 				$pullsheet_output .= "</table>";
 			}
 
-			$pullsheet_output .= "<div style=\"page-break-after:always;\"></div>";
+			// $pullsheet_output .= "<div style=\"page-break-after:always;\"></div>";
 
 		} // end else
 
