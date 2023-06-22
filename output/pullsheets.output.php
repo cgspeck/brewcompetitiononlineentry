@@ -31,13 +31,14 @@ else {
 		$table_flight_thead .= "<tr>";
 		$table_flight_thead .= "<th width=\"5%\" nowrap>".$label_pull_order."</th>";
 		$table_flight_thead .= "<th width=\"5%\">#</th>";
-		$table_flight_thead .= "<th width=\"35%\">".$label_style."</th>";
-		$table_flight_thead .= "<th width=\"35%\">".$label_info."</th>";
+		$table_flight_thead .= "<th width=\"35%\">".$label_style."/notes</th>";
+		/*$table_flight_thead .= "<th width=\"35%\">".$label_info."</th>";
 		$table_flight_thead .= "<th width=\"5%\" nowrap>".$label_box."</th>";
 		if (($go != "judging_scores_bos") && ($go != "mini_bos") && ($filter != "mini_bos")) $table_flight_thead .= "<th width=\"5%\" nowrap>".$label_mini_bos."</th>";
 		$table_flight_thead .= "<th width=\"5%\" nowrap>".$label_score."</th>";
 		$table_flight_thead .= "<th width=\"5%\" nowrap>".$label_place."</th>";
-		$table_flight_thead .= "</tr>";
+	    */
+		$table_flight_thead .= "</tr>\n";
 	}
 }
 
@@ -727,24 +728,26 @@ elseif (($go != "judging_scores_bos") && ($go != "mini_bos") && ($go != "all_ent
 					$table_info_header = "";
 
 					$table_info_header .= "<div class=\"page-header\">";
-					$table_info_header .= "<h1>";
+					$table_info_header .= "  <h1>";
 					$table_info_header .= sprintf("%s %s: %s",$label_table,$row_tables['tableNumber'],$row_tables['tableName']);
 					if ($filter == "mini_bos") $table_info_header .= sprintf(" - %s",$label_mini_bos);
-					$table_info_header .= "</h1>";
-					$table_info_header .= "</div>";
+					$table_info_header .= "</h1>\n";
+					$table_info_header .= "</div>\n";
 
 					if ((!empty($row_tables['tableLocation'])) && ($filter != "mini_bos")) {
 
 						$table_info_location .= "<h2>";
 						$table_info_location .= table_location($row_tables['id'],$_SESSION['prefsDateFormat'],$_SESSION['prefsTimeZone'],$_SESSION['prefsTimeFormat'],"default");
 						if ($round != "default") $table_info_location .= sprintf("<br>%s %s",$label_round,$round);
-						$table_info_location .= "</h2>";
+						$table_info_location .= "</h2>\n";
 						$table_info_location .= "<p class=\"lead\">";
 						$table_info_location .= sprintf("%s: %s",$label_entries,$entry_count);
-						$table_info_location .= "</p>";
+						$table_info_location .= "</p>\n";
+						/*
 						$table_info_location .= "<p>";
 						$table_info_location .= sprintf("%s: %s",$label_please_note,$output_text_019);
 						$table_info_location .= "</p>";
+						*/
 
 					}
 
@@ -754,6 +757,7 @@ elseif (($go != "judging_scores_bos") && ($go != "mini_bos") && ($go != "all_ent
 
 						//$table_flight .= $row_tables['tableStyles'];
 
+						/*
 						$table_flight_datatables .= "<script>";
 						$table_flight_datatables .= "$(document).ready(function() {";
 						$table_flight_datatables .= "$('#sortable".$row_tables['id']."').dataTable( {";
@@ -768,12 +772,15 @@ elseif (($go != "judging_scores_bos") && ($go != "mini_bos") && ($go != "all_ent
 						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
 						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
 						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
+						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
+						if ($filter != "mini_bos") $table_flight_datatables .= "{ \"asSorting\": [  ] },";
+						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
 						$table_flight_datatables .= "{ \"asSorting\": [  ] }";
 						$table_flight_datatables .= "]";
 						$table_flight_datatables .= "} );";
 						$table_flight_datatables .= "} );";
-						$table_flight_datatables .= "</script>";
-
+						$table_flight_datatables .= "</script>\n";
+                        */
 						$table_flight .= $table_flight_datatables;
 						$table_flight .= "<table class=\"table table-striped table-bordered\" id=\"sortable".$row_tables['id']."\">";
 						$table_flight .= "<thead>";
@@ -830,13 +837,15 @@ elseif (($go != "judging_scores_bos") && ($go != "mini_bos") && ($go != "all_ent
 									if (!empty($row_entries['brewStaffNotes'])) $table_flight_tbody .= "<p><strong>".$label_notes.":</strong> ".$row_entries['brewStaffNotes']."</p>";
 
 									$table_flight_tbody .= "</td>";
+									/*
 									$table_flight_tbody .= "<td>";
 									$table_flight_tbody .= "<p>&nbsp;</p>";
 									$table_flight_tbody .= "</td>";
 									$table_flight_tbody .= "<td>";
 									$table_flight_tbody .= "<p>&nbsp;</p>";
 									$table_flight_tbody .= "</td>";
-									$table_flight_tbody .= "</tr>";
+									*/
+									$table_flight_tbody .= "</tr>\n";
 
 								}
 

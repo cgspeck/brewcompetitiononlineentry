@@ -51,10 +51,6 @@ h6 {
   page-break-after: always;
   page-break-before: avoid;
 }
-table {
-    page-break-after: always;
-    page-break-before: avoid;
-}
 p {
     page-break-after: avoid;
     page-break-before: avoid;
