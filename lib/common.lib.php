@@ -1279,7 +1279,7 @@ function style_convert($number,$type,$base_url="",$archive="") {
 	$query_style = sprintf("SELECT brewStyleNum,brewStyleGroup,brewStyle,brewStyleVersion,brewStyleReqSpec,brewStyleOwn FROM %s WHERE brewStyleGroup='%s' AND (brewStyleVersion='%s' OR brewStyleOwn='custom')",$styles_db_table,$number,$style_set);
 	$style = mysqli_query($connection,$query_style) or die (mysqli_error($connection));
 	$row_style = mysqli_fetch_assoc($style);
-	if ((!empty($archive)) && !in_array($archive, ["default", "all"])) {
+	if ((!empty($archive)) && !in_array($archive, ["default", "all", "judging_scores"])) {
 		$query_archive_db = sprintf("SELECT archiveStyleSet FROM %s WHERE archiveSuffix='%s'",$prefix."archive",$archive);
 		$archive_db = mysqli_query($connection,$query_archive_db) or die (mysqli_error($connection));
 		$row_archive_db = mysqli_fetch_assoc($archive_db);
