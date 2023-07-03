@@ -23,3 +23,10 @@ css/anomalus.css
 config.local.php
 .htpassword
 private
+ajax/email.ajax.php
+ajax/emails.ajax.php
+templates/barcode-entry.html
+templates/simple-metric-entry-barcode.html
+templates/simple-metric-entry.html
+templates/simple-us-entry-barcode.html
+templates/simple-us-entry.html
