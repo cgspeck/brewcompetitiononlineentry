@@ -1279,14 +1279,12 @@ function style_convert($number,$type,$base_url="",$archive="") {
 	$query_style = sprintf("SELECT brewStyleNum,brewStyleGroup,brewStyle,brewStyleVersion,brewStyleReqSpec,brewStyleOwn FROM %s WHERE brewStyleGroup='%s' AND (brewStyleVersion='%s' OR brewStyleOwn='custom')",$styles_db_table,$number,$style_set);
 	$style = mysqli_query($connection,$query_style) or die (mysqli_error($connection));
 	$row_style = mysqli_fetch_assoc($style);
-
-	if ((!empty($archive)) && ($archive != "default")) {
+	if ((!empty($archive)) && !in_array($archive, ["default", "all"])) {
 		$query_archive_db = sprintf("SELECT archiveStyleSet FROM %s WHERE archiveSuffix='%s'",$prefix."archive",$archive);
 		$archive_db = mysqli_query($connection,$query_archive_db) or die (mysqli_error($connection));
 		$row_archive_db = mysqli_fetch_assoc($archive_db);
 		$style_set = $row_archive_db['archiveStyleSet'];
 	}
-
 	$style_convert = "";
 
 	switch ($type) {
@@ -1297,27 +1295,22 @@ function style_convert($number,$type,$base_url="",$archive="") {
 
 		$custom = FALSE;
 		$start_custom = ($_SESSION['style_set_category_end'] + 1);
-
 		if ($row_style) {
-
 			if ((is_numeric($number)) && ($number >= $start_custom) && ($row_style['brewStyleOwn'] != "bcoe")) $custom = TRUE;
 
 			// if numeric make two-digit by adding leading zero just in case
 			if (is_numeric($number)) $number = sprintf('%02d', $number); 
-
 			if ($custom) $style_convert = $row_style['brewStyle']." (Custom Style)";
-			
 			else {
 				foreach ($style_sets as $style_set_data) {
 					if (!empty($style_set_data)) {
-						if ($style_set_data['style_set_name'] === $style_set) {
+						if ($style_set_data['style_set_name'] == $style_set) {
 							$style_set_cat = $style_set_data['style_set_categories'];
 							if (!empty($style_set_cat)) $style_convert = $style_set_cat[$number];
 						}
 					}
 				}
 			}
-
 		}
 
 		break;
