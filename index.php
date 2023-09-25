@@ -192,6 +192,8 @@ else $_SESSION['token'] = bin2hex(openssl_random_pseudo_bytes(32));
 </head>
 <body>
 
+<a name="top"></a>
+
 <!-- LOADER -->
 <div id="loader-submit">
     <div class="center">
