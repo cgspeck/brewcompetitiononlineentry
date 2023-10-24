@@ -47,6 +47,7 @@
 </section>
 <?php } else { ?>
     <input type="hidden" name="brewerProAm" value="0">
+    <input type="hidden" name="brewerMHP" value="0">
 <?php } ?>
 
 <section id="staff-preferences">
