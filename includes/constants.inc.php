@@ -635,4 +635,7 @@ if (empty($_SESSION['prefsSelectedStyles'])) {
 
 }
 
+$default_to = "prost";
+$default_from = "noreply";
+
 ?>
