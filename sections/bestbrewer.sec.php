@@ -34,62 +34,197 @@ if ($bb_totalRows_scores > 0) {
 		$club_name = normalizeClubs($bb_row_scores['brewerClubs']);
 
 		if (array_key_exists($bb_row_scores['uid'], $bestbrewer)) {
-			if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer[$bb_row_scores['uid']]['Places'][$place-1] += 1;
-			$bestbrewer[$bb_row_scores['uid']]['Scores'][] = $bb_row_scores['scoreEntry'];
 
-			// -- Compile separate vars for clubs --
-			if (!empty($bb_row_scores['brewerClubs'])) {
+			if ($row_bb_prefs['prefsScoringCOA'] == 1) {
 
-				if (array_key_exists($club_name, $bestbrewer_clubs)) {
-					if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places'][$place-1] += 1;
-					$bestbrewer_clubs[$club_name]['Scores'][] = $bb_row_scores['scoreEntry'];
+				// Get table number and place at table
+				if ($row_bb_prefs['prefsWinnerMethod'] == 0) {
+
+					if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer[$bb_row_scores['uid']]['Places-data'][$bb_row_scores['scoreTable']] = $place;
+
 				}
 
 				else {
+
+					if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer[$bb_row_scores['uid']]['Places-data'][$bb_row_scores['brewCategorySort']] = $place;
+
+				}
+
+
+			}
+
+
+			if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer[$bb_row_scores['uid']]['Places'][$place-1] += 1;
+
+			$bestbrewer[$bb_row_scores['uid']]['Scores'][] = $bb_row_scores['scoreEntry'];
+			
+			// Compile separate vars for clubs
+			if (!empty($bb_row_scores['brewerClubs'])) {
+
+				if (array_key_exists($club_name, $bestbrewer_clubs)) {
+
+					if ($row_bb_prefs['prefsScoringCOA'] == 1) {
+
+						// Get table number and place at table
+						if ($row_bb_prefs['prefsWinnerMethod'] == 0) {
+
+							if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places-data'][$bb_row_scores['scoreTable']] = $place;
+
+						}
+
+						else {
+
+							if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places-data'][$bb_row_scores['brewCategorySort']] = $place;
+
+						}
+
+					}
+
+					if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places'][$place-1] += 1;
+					$bestbrewer_clubs[$club_name]['Scores'][] = $bb_row_scores['scoreEntry'];
+				
+				}
+
+				else {
+					
+					if ($row_bb_prefs['prefsScoringCOA'] == 1) {
+
+						$bestbrewer_clubs[$club_name]['Places-data'] = array();
+
+						// Get table number and place at table
+						if ($row_bb_prefs['prefsWinnerMethod'] == 0) {
+
+							if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places-data'][$bb_row_scores['scoreTable']] = $place;
+
+						}
+
+						elseif ($row_bb_prefs['prefsWinnerMethod'] == 1) {
+
+							if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places-data'][$bb_row_scores['brewCategorySort']] = $place;
+
+						}
+
+						elseif ($row_bb_prefs['prefsWinnerMethod'] == 2) {
+
+							if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) {
+								$substyle = $bb_row_scores['brewCategorySort']."-".$bb_row_scores['brewSubCategory'];
+								$bestbrewer_clubs[$club_name]['Places-data'][$substyle] = $place;
+							}
+							
+
+						}
+
+					}
+
 					$bestbrewer_clubs[$club_name]['Places'] = array(0,0,0,0,0);
 					if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places'][$place-1] = 1;
+
 					$bestbrewer_clubs[$club_name]['Scores'] = array();
 					$bestbrewer_clubs[$club_name]['Scores'][] = $bb_row_scores['scoreEntry'];
 					$bestbrewer_clubs[$club_name]['Clubs'] = $bb_row_scores['brewerClubs'];
+				
 				}
 
-			}
-			// -- end clubs --
+			} // end clubs
+			
 		}
 
 		else {
+			
 			if ($_SESSION['prefsProEdition'] == 1) $bestbrewer[$bb_row_scores['uid']]['Name'] = $bb_row_scores['brewerBreweryName'];
+			
 			if ($_SESSION['prefsProEdition'] == 0) {
 				$bestbrewer[$bb_row_scores['uid']]['Name'] = $bb_row_scores['brewerFirstName']." ".$bb_row_scores['brewerLastName'];
 			}
 
 			if ($_SESSION['prefsProEdition'] == 0) $bestbrewer[$bb_row_scores['uid']]['Clubs'] = $bb_row_scores['brewerClubs'];
+
 			$bestbrewer[$bb_row_scores['uid']]['Places'] = array(0,0,0,0,0);
 			$bestbrewer[$bb_row_scores['uid']]['Scores'] = array();
 			$bestbrewer[$bb_row_scores['uid']]['TypeBOS'] = array();
 
-			if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer[$bb_row_scores['uid']]['Places'][$place-1] = 1;
-			$bestbrewer[$bb_row_scores['uid']]['Scores'][0] = $bb_row_scores['scoreEntry'];
+			if ($row_bb_prefs['prefsScoringCOA'] == 1) {
 
-			// -- Compile separate vars for clubs --
-			if (!empty($bb_row_scores['brewerClubs'])) {
+				$bestbrewer[$bb_row_scores['uid']]['Places-data'] = array();
 
-				if (array_key_exists($club_name, $bestbrewer_clubs)) {
-					if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places'][$place-1] += 1;
-					$bestbrewer_clubs[$club_name]['Scores'][] = $bb_row_scores['scoreEntry'];
+				// Get table number and place at table
+				if ($row_bb_prefs['prefsWinnerMethod'] == 0) {
+
+					if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer[$bb_row_scores['uid']]['Places-data'][$bb_row_scores['scoreTable']] = $place;
+
 				}
 
 				else {
-					$bestbrewer_clubs[$club_name]['Places'] = array(0,0,0,0,0);
-					if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places'][$place-1] = 1;
-					$bestbrewer_clubs[$club_name]['Scores'] = array();
-					$bestbrewer_clubs[$club_name]['Scores'][] = $bb_row_scores['scoreEntry'];
-					$bestbrewer_clubs[$club_name]['Clubs'] = $bb_row_scores['brewerClubs'];
+
+					if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer[$bb_row_scores['uid']]['Places-data'][$bb_row_scores['brewCategorySort']] = $place;
+
 				}
 
 			}
-			// -- end clubs --
 
+			if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer[$bb_row_scores['uid']]['Places'][$place-1] = 1;
+
+			$bestbrewer[$bb_row_scores['uid']]['Scores'][0] = $bb_row_scores['scoreEntry'];
+			
+			// Compile separate vars for clubs
+			if (!empty($bb_row_scores['brewerClubs'])) {
+
+				if (array_key_exists($club_name, $bestbrewer_clubs)) {
+
+					if ($row_bb_prefs['prefsScoringCOA'] == 1) {
+
+						// Get table number and place at table
+						if ($row_bb_prefs['prefsWinnerMethod'] == 0) {
+
+							if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places-data'][$bb_row_scores['scoreTable']] = $place;
+
+						}
+
+						else {
+
+							if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places-data'][$bb_row_scores['brewCategorySort']] = $place;
+
+						}
+
+					}
+
+					if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places'][$place-1] += 1;
+					$bestbrewer_clubs[$club_name]['Scores'][] = $bb_row_scores['scoreEntry'];
+				
+				}
+
+				else {
+					
+					if ($row_bb_prefs['prefsScoringCOA'] == 1) {
+
+						$bestbrewer_clubs[$club_name]['Places-data'] = array();
+
+						// Get table number and place at table
+						if ($row_bb_prefs['prefsWinnerMethod'] == 0) {
+
+							if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places-data'][$bb_row_scores['scoreTable']] = $place;
+
+						}
+
+						else {
+
+							if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places-data'][$bb_row_scores['brewCategorySort']] = $place;
+
+						}
+
+					}
+
+					$bestbrewer_clubs[$club_name]['Places'] = array(0,0,0,0,0);
+					if (($place == $bb_row_scores['scorePlace']) && ($place >= 1) && ($place <= 5)) $bestbrewer_clubs[$club_name]['Places'][$place-1] = 1;
+
+					$bestbrewer_clubs[$club_name]['Scores'] = array();
+					$bestbrewer_clubs[$club_name]['Scores'][] = $bb_row_scores['scoreEntry'];
+					$bestbrewer_clubs[$club_name]['Clubs'] = $bb_row_scores['brewerClubs'];
+				
+				}
+
+			} // end clubs
+			
 		}
 
 	} while ($bb_row_scores = mysqli_fetch_assoc($bb_scores));
@@ -111,7 +246,7 @@ if ($row_bb_prefs['prefsBestUseBOS'] == 1) {
 				$bestbrewer[$bb_row_bos_scores['uid']]['Scores'][] = $bb_row_bos_scores['scoreEntry'];
 				$bestbrewer[$bb_row_bos_scores['uid']]['TypeBOS'][] += 1;
 
-				// -- Compile separate vars for clubs --
+				// Compile separate vars for clubs
 				if (!empty($bb_row_bos_scores['brewerClubs'])) {
 
 					if (array_key_exists($club_name, $bestbrewer_clubs)) {
@@ -128,7 +263,7 @@ if ($row_bb_prefs['prefsBestUseBOS'] == 1) {
 					}
 
 				}
-				// -- end clubs --
+				// end clubs
 			}
 
 			else {
@@ -141,7 +276,7 @@ if ($row_bb_prefs['prefsBestUseBOS'] == 1) {
 				$bestbrewer[$bb_row_bos_scores['uid']]['Scores'][0] = $bb_row_bos_scores['scoreEntry'];
 				$bestbrewer[$bb_row_bos_scores['uid']]['TypeBOS'][0] = 1;
 
-				// -- Compile separate vars for clubs --
+				// Compile separate vars for clubs
 				if (!empty($bb_row_bos_scores['brewerClubs'])) {
 
 					if (array_key_exists($club_name, $bestbrewer_clubs)) {
@@ -157,8 +292,7 @@ if ($row_bb_prefs['prefsBestUseBOS'] == 1) {
 						$bestbrewer_clubs[$club_name]['Clubs'] = $bb_row_bos_scores['brewerClubs'];
 					}
 
-				}
-				// -- end clubs --
+				} // end clubs
 
 			}
 
@@ -173,9 +307,12 @@ if ($row_limits['prefsShowBestBrewer'] != 0) {
 	$bb_sorter = array();
 
 	foreach (array_keys($bestbrewer) as $key) {
-		$points = best_brewer_points($key,$bestbrewer[$key]['Places'],$bestbrewer[$key]['Scores'],$bb_points_prefs,$bb_tiebreaker_prefs);
+		
+		if ($row_bb_prefs['prefsScoringCOA'] == 1) $points = best_brewer_points($key,$bestbrewer[$key]['Places-data'],$bestbrewer[$key]['Scores'],$bb_points_prefs,$bb_tiebreaker_prefs,1);
+		else $points = best_brewer_points($key,$bestbrewer[$key]['Places'],$bestbrewer[$key]['Scores'],$bb_points_prefs,$bb_tiebreaker_prefs,0);
 		$bestbrewer[$key]['Points'] = $points;
 		$bb_sorter[$key] = $points;
+	
 	}
 
 	arsort($bb_sorter);
@@ -210,7 +347,9 @@ if (($_SESSION['prefsProEdition'] == 0) && ($row_limits['prefsShowBestClub'] != 
 
 	// Compile the Best Club points
 	foreach (array_keys($bestbrewer_clubs) as $key) {
-		$points_clubs = best_brewer_points($key,$bestbrewer_clubs[$key]['Places'],$bestbrewer_clubs[$key]['Scores'],$bb_points_prefs,$bb_tiebreaker_prefs);
+		if ($row_bb_prefs['prefsScoringCOA'] == 1) $points_clubs = best_brewer_points($key,$bestbrewer_clubs[$key]['Places-data'],$bestbrewer_clubs[$key]['Scores'],$bb_points_prefs,$bb_tiebreaker_prefs,1);
+		else $points_clubs = best_brewer_points($key,$bestbrewer_clubs[$key]['Places'],$bestbrewer_clubs[$key]['Scores'],$bb_points_prefs,$bb_tiebreaker_prefs,0);
+
 		$bestbrewer_clubs[$key]['Points'] = $points_clubs;
 		$bb_sorter_clubs[$key] = $points_clubs;
 	}
@@ -331,8 +470,6 @@ if (($_SESSION['prefsProEdition'] == 0) && ($row_limits['prefsShowBestClub'] != 
 	$table_head2 .= sprintf("<th nowrap>%s</th>",$label_score);
 	$table_head2 .= "</tr>";
 }
-
-
 
 if ($row_limits['prefsShowBestBrewer'] != 0) {
 	
