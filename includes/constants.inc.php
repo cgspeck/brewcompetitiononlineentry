@@ -149,7 +149,7 @@ $tie_break_rules = array(
  * Convert the array to JSON array and move to contest_info DB table - 
  * contestClubs column.
  * 
- * Updated June 27, 2023
+ * Updated January 11, 2024
  */
 
 $club_array = array(
