@@ -804,6 +804,7 @@ if ($go == "default") {  ?>
         if ($go == "judge") $judge_disabled = TRUE;
     ?>
     <!-- Show Judge Fields if Registering as a Judge -->
+    <input type="hidden" name="brewerDropOff" id="brewerDropOffHidden" value="999" />
     <div class="form-group"><!-- Form Group REQUIRED Radio Group -->
         <label for="" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 control-label text-warning"><i class="fa fa-sm fa-star"></i> <?php echo $label_judging; ?></label>
         <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
@@ -920,6 +921,7 @@ if ($go == "default") {  ?>
     ?>
     <!-- Show Steward Fields if Registering as a Steward -->
     <div class="form-group"><!-- Form Group REQUIRED Radio Group -->
+        <input type="hidden" name="brewerDropOff" id="brewerDropOffHidden" value="999" />
         <label for="" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 control-label text-warning"><i class="fa fa-sm fa-star"></i> <?php echo $label_stewarding; ?></label>
         <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
             <p><?php echo $brewer_text_015; ?></p>

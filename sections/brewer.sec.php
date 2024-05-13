@@ -207,8 +207,8 @@ if ((isset($row_judging3)) && (!empty($row_judging3))) {
         $staff_avail_info = "";
         $staff_avail_option = "";
 
-        $location_steward_no = "";
-        $location_steward_yes = "";
+        $location_steward_no = " disabled ";
+        $location_steward_yes = " selected ";
         $steward_avail_info = "";
         $steward_avail_option = "";
 
