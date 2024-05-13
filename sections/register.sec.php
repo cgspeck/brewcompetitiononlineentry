@@ -238,8 +238,8 @@ if ((isset($row_judging3)) && (!empty($row_judging3))) {
     
     do { 
 
-        $location_yes = "";
-        $location_no = "";
+        $location_yes = " selected ";
+        $location_no = " disabled ";
         $judge_avail_info = "";
         $judge_avail_option = "";
         $staff_avail_info = "";
