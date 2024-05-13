@@ -3754,6 +3754,10 @@ function styles_active($method,$archive="") {
 			$query_styles = sprintf("SELECT DISTINCT brewStyleGroup FROM %s WHERE (brewStyleVersion='%s' OR brewStyleOwn='custom') UNION ALL SELECT DISTINCT brewStyleGroup FROM %s WHERE (brewStyleVersion='%s' OR brewStyleOwn='custom')", $styles_db_table, $style_set, $prefix."styles", $style_set);
 		}
 		*/
+
+		if (! isset($styles_db_table)) {
+			$styles_db_table = 'styles';
+		}
 		
 		$query_styles = sprintf("SELECT DISTINCT brewStyleGroup FROM %s WHERE (brewStyleVersion='%s' OR brewStyleOwn='custom')", $styles_db_table, $style_set);
 		if ((empty($archive)) || ($archive == "default")) $query_styles .= " AND brewStyleActive='Y'";
