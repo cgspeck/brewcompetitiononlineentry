@@ -753,27 +753,6 @@ if ($go == "default") {  ?>
     <input type="hidden" name="brewerProAm" value="0">
     <?php } ?>
 </div>
-	<div class="form-group"><!-- Form Group Text Input -->
-		<label for="" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 control-label"><?php echo $label_aha_number; ?></label>
-		<div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-			<div class="input-group">
-				<span class="input-group-addon" id="aha-addon1"><span class="fa fa-beer"></span></span>
-				<!-- Input Here -->
-				<input class="form-control" name="brewerAHA" id="brewerAHA" type="text" pattern="\d*" placeholder="" data-error="<?php echo $brew_text_019; ?>" value="<?php if (($msg != "default") && (isset($_COOKIE['brewerAHA']))) echo $_COOKIE['brewerAHA']; ?>">
-			</div>
-			<div class="help-block with-errors"></div>
-            <div id="ahaProAmText" class="help-block"><?php echo $register_text_033; ?></div>
-		</div>
-	</div><!-- ./Form Group -->
-	<section id="mhp-number">
-	    <div class="form-group">
-	        <label for="brewerMHP" class="col-lg-3 col-md-3 col-sm-4 col-xs-12 control-label"><?php echo $label_mhp_number; ?></label>
-	        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-	            <input class="form-control" name="brewerMHP" id="brewerMHP" type="text" pattern="\d*" placeholder="" data-error="<?php echo $brew_text_019; ?>" value="<?php if (($msg != "default") && (isset($_COOKIE['brewerMHP']))) echo $_COOKIE['brewerMHP']; ?>" placeholder="">
-	            <span class="help-block"><?php echo $brewer_text_053; ?></span>
-	        </div>
-	    </div>
-	</section>
     <?php } // END if (($_SESSION['prefsProEdition'] == 0) ?>
     <?php } // END if ($view == "default") ?>
     <?php if (($_SESSION['prefsProEdition'] == 0) || (($_SESSION['prefsProEdition'] == 1) && (($go == "judge") || ($go == "steward")))) { ?>
