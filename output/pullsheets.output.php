@@ -1028,7 +1028,7 @@ elseif (($go != "judging_scores_bos") && ($go != "mini_bos") && ($go != "all_ent
 				}
 				else $pullsheet_output .= $table_flight;
 
-				// $pullsheet_output .= "<div style=\"page-break-after:always;\"></div>";
+				$pullsheet_output .= "<div style=\"page-break-after:always;\"></div>";
 
 			} while ($row_tables = mysqli_fetch_assoc($tables));
 
