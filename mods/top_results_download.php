@@ -19,7 +19,7 @@ BCOE&M uses Font Awesome v4.7 icons throughout the core code. To use Font Awesom
 - Font Awesome icon examples: https://fontawesome.com/v4.7/examples/
 -->
 <div class="jumbotron">
-  <h2>2022 Full Results List</h2>
+  <h2>2023 Full Results List</h2>
   <p>Click the button below to download the full results list as a PDF.</p>
-  <p><a role="button" class="btn btn-info btn-lg btn-block" href="https://comps.westgatebrewers.org/public/stout-extravaganza-full-result-list.pdf"><span class="fa fa-download"></span>Download</a></p>
+  <p><a role="button" class="btn btn-info btn-lg btn-block" href="https://comps.westgatebrewers.org/public/2023-stout-extravaganza-full-result-list.pdf"><span class="fa fa-download"></span>Download</a></p>
 </div>
