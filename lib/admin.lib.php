@@ -1256,8 +1256,8 @@ function assign_to_table($tid,$bid,$filter,$total_flights,$round,$location,$tabl
 
 	$r = "";
 	$disabled = "";
-	if (entry_conflict($bid,$table_styles)) $disabled = "disabled"; 
-	if ($ind_aff_flag) $disabled = "disabled"; 
+	// if (entry_conflict($bid,$table_styles)) $disabled = "disabled"; 
+	// if ($ind_aff_flag) $disabled = "disabled"; 
 	
 	if ($filter == "stewards") $role = "S"; else $role = "J";
 
@@ -1478,7 +1478,6 @@ $r .= "</section>";
 return $r;
 }
 */
-
 function judge_alert($round,$bid,$tid,$location,$likes,$dislikes,$table_styles,$id,$ind_aff_flag) {
 	
 	if (table_round($tid,$round)) {
@@ -1489,11 +1488,11 @@ function judge_alert($round,$bid,$tid,$location,$likes,$dislikes,$table_styles,$
 		
 		if ($unavailable) $r = "bg-purple text-purple|<span class=\"text-purple\"><span class=\"fa fa-check\"></span> <strong>Assigned.</strong> Paricipant is assigned to another table in this round.</span>";
 		
-		if ($entry_conflict) $r = "bg-info text-info|<span class=\"text-info\"><span class=\"fa fa-ban\"></span> <strong>Disabled.</strong> Participant has an entry at this table.</span>";
+		if ($entry_conflict) $r = "bg-info text-info|<span class=\"text-info\"><span class=\"fa fa-exclamation\"></span> Participant has an entry at this table.</span>";
 
 		if ($ind_aff_flag) {
-			if ($_SESSION['prefsProEdition'] == 1) $r = "bg-info text-info|<span class=\"text-info\"><span class=\"fa fa-ban\"></span> <strong>Disabled.</strong> Participant has a reported organization affiliation at this table.</span>";
-			else $r = "bg-info text-info|<span class=\"text-info\"><span class=\"fa fa-ban\"></span> <strong>Disabled.</strong> Participant has a reported brewing partner or team affiliation at this table.</span>";
+			if ($_SESSION['prefsProEdition'] == 1) $r = "bg-info text-info|<span class=\"text-info\"><span class=\"fa fa-exclamation\"></span> Participant has a reported organization affiliation at this table.</span>";
+			else $r = "bg-info text-info|<span class=\"text-info\"><span class=\"fa fa-exclamation\"></span> Participant has a reported brewing partner or team affiliation at this table.</span>";
 		}
 		
 		if ((!$unavailable) && (!$entry_conflict) && (!$ind_aff_flag)) $r = like_dislike($likes,$dislikes,$table_styles);

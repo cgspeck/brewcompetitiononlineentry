@@ -203,7 +203,8 @@ if ($totalRows_brewer > 0) {
     $row_table_assignments = mysqli_fetch_assoc($table_assignments);
 
     // If so, see if there are any entry conflicts
-    if ($row_table_assignments) $entry_conflict = entry_conflict($row_table_assignments['bid'],$row_tables_edit['tableStyles']);
+    // if ($row_table_assignments) $entry_conflict = entry_conflict($row_table_assignments['bid'],$row_tables_edit['tableStyles']);
+    $entry_conflict = FALSE;
 
     // If the participant has an entry conflict, unassign them from the table.
     // Increase the entry_conflict_count var
