@@ -1190,6 +1190,8 @@ if ((isset($_SESSION['update_summary'])) && (!empty($_SESSION['update_summary'])
                             <?php if ($_SESSION['jPrefsTablePlanning'] == 0) { ?>
                             <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-12 small">
                                 <strong>Pullsheets</strong>
+                                <p>Right-click "All By Tables - Entry Numbers" & open in a new tab.</p>
+                                <strong>Copy and paste result into LibreOffice Writer and sort tables by entry number</strong>
                             </div>
                             <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-12 small">
                                 <ul class="list-unstyled">
