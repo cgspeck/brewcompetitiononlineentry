@@ -124,7 +124,7 @@ function selfPrint(){
     self.print();
 }
 setTimeout('selfPrint()',3000);
-html.push('');
+// html.push('');
 </script>
 <?php 	}
 } // end if logged in
