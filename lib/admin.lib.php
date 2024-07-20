@@ -1178,50 +1178,7 @@ function like_dislike($likes,$dislikes,$styles) {
 }
 
 function entry_conflict($bid,$table_styles) {
-	
-	require(CONFIG.'config.php');
-	mysqli_select_db($connection,$database);
-
-	/*
-	if (HOSTED) $styles_db_table = "bcoem_shared_styles";
-	else
-	*/
-	$styles_db_table = $prefix."styles";
-
-	$d = 0;
-
-	if (!empty($table_styles)) {
-
-		$b = explode(",",$table_styles);
-
-		foreach ($b as $style) {
-
-			/*
-			if (HOSTED) $query_style = sprintf("SELECT brewStyleGroup,brewStyleNum FROM %s WHERE id='%s' UNION ALL SELECT brewStyleGroup,brewStyleNum FROM %s WHERE id='%s'", $styles_db_table, $style, $prefix."styles", $style);
-			else 
-			*/
-			$query_style = sprintf("SELECT brewStyleGroup,brewStyleNum FROM %s WHERE id='%s'", $prefix."styles", $style);
-			$style = mysqli_query($connection,$query_style) or die (mysqli_error($connection));
-			$row_style = mysqli_fetch_assoc($style);
-
-			if (($row_style) && ($bid != "999999999")) {
-				
-				$query_entries = sprintf("SELECT COUNT(*) as 'count' FROM %s WHERE brewBrewerID='%s' AND brewCategorySort='%s' AND brewSubCategory='%s'", $prefix."brewing", $bid, $row_style['brewStyleGroup'],$row_style['brewStyleNum']);
-				if ($_SESSION['jPrefsTablePlanning'] == 0) $query_entries .= " AND brewReceived='1'";
-				$entries = mysqli_query($connection,$query_entries) or die (mysqli_error($connection));
-				$row_entries = mysqli_fetch_assoc($entries);
-
-				if (($row_entries) && ($row_entries['count'] > 0)) $d += 1;
-
-			}
-
-		}
-
-	}
-
-	if ($d > 0) return TRUE;
-	else return FALSE;
-	
+	return FALSE;
 }
 
 function unassign($bid,$location,$round,$tid) {
