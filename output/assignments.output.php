@@ -15,7 +15,7 @@ if ($filter == "stewards") $filter = "S";
 elseif ($filter == "judges") $filter = "J";
 
 include (DB.'output_assignments.db.php');
-$count = round((get_entry_count('received')/($_SESSION['jPrefsFlightEntries'])),0);
+$count = round((get_entry_count('received')/($_SESSION['jPrefsFlightEntries'])),0) * 2;
 $role_replace1 = array("HJ","LJ","MBOS",", ");
 $role_replace2 = array("<span class=\"text-primary\"><span class=\"fa fa-gavel\"></span> Table Head Judge</span><br>","<span class=\"text-warning\"><span class=\"fa fa-star\"></span> Lead Judge</span><br>","<span class=\"text-success\"><span class=\"fa fa-trophy\"></span> Mini-BOS Judge</span><br>","");
 
@@ -254,7 +254,7 @@ $(document).ready(function() {
 			<?php if ($filter == "J") { ?>
 			{ "asSorting": [  ] },
 			<?php } ?>
-			{ "asSorting": [  ] },
+			// { "asSorting": [  ] },
 			{ "asSorting": [  ] }
 			]
 		});
@@ -319,7 +319,7 @@ $(document).ready(function() {
         <?php if ($filter == "J") { ?>
         <th class="dataHeading bdr1B" width="20%"><?php echo $label_bjcp_id; ?></th>
         <?php } ?>
-        <th class="dataHeading bdr1B" width="10%"><?php echo $label_waiver; ?></th>
+        <!-- <th class="dataHeading bdr1B" width="10%"><?php echo $label_waiver; ?></th> -->
         <th class="dataHeading bdr1B"><?php echo $label_signature; ?></th>
     </tr>
     </thead>
@@ -330,7 +330,7 @@ $(document).ready(function() {
         <?php if ($filter == "J") { ?>
     	<td width="20%">&nbsp;</td>
         <?php } ?>
-        <td width="10%"><?php echo sprintf("%s / %s",$label_yes,$label_no); ?></td>
+        <!-- <td width="10%"><?php echo sprintf("%s / %s",$label_yes,$label_no); ?></td> -->
         <td>&nbsp;</td>
     </tr>
 	<?php } ?>
