@@ -877,7 +877,6 @@ elseif (($go != "judging_scores_bos") && ($go != "mini_bos") && ($go != "all_ent
 
 						//$table_flight .= $row_tables['tableStyles'];
 
-						/*
 						$table_flight_datatables .= "<script>";
 						$table_flight_datatables .= "$(document).ready(function() {";
 						$table_flight_datatables .= "$('#sortable".$row_tables['id']."').dataTable( {";
@@ -885,22 +884,22 @@ elseif (($go != "judging_scores_bos") && ($go != "mini_bos") && ($go != "all_ent
 						$table_flight_datatables .= "\"sDom\": 'rt',";
 						$table_flight_datatables .= "\"bStateSave\" : false,";
 						$table_flight_datatables .= "\"bLengthChange\" : false,";
-						$table_flight_datatables .= "\"aaSorting\": [[2,'asc'],[1,'asc']],";
+						$table_flight_datatables .= "\"aaSorting\":  [[0,'asc'], [[2,'asc'],[1,'asc']],";
 						$table_flight_datatables .= "\"bProcessing\" : false,";
 						$table_flight_datatables .= "\"aoColumns\": [";
 						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
 						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
 						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
-						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
-						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
-						if ($filter != "mini_bos") $table_flight_datatables .= "{ \"asSorting\": [  ] },";
-						$table_flight_datatables .= "{ \"asSorting\": [  ] },";
-						$table_flight_datatables .= "{ \"asSorting\": [  ] }";
+						// $table_flight_datatables .= "{ \"asSorting\": [  ] },";
+						// $table_flight_datatables .= "{ \"asSorting\": [  ] },";
+						// if ($filter != "mini_bos") $table_flight_datatables .= "{ \"asSorting\": [  ] },";
+						// $table_flight_datatables .= "{ \"asSorting\": [  ] },";
+						// $table_flight_datatables .= "{ \"asSorting\": [  ] }";
 						$table_flight_datatables .= "]";
 						$table_flight_datatables .= "} );";
 						$table_flight_datatables .= "} );";
 						$table_flight_datatables .= "</script>\n";
-                        */
+
 						$table_flight .= $table_flight_datatables;
 						$table_flight .= "<table class=\"table table-striped table-bordered\" id=\"sortable".$row_tables['id']."\">";
 						$table_flight .= "<thead>";
@@ -931,7 +930,9 @@ elseif (($go != "judging_scores_bos") && ($go != "mini_bos") && ($go != "all_ent
 
 									$table_flight_tbody .= "<tr>";
 									$table_flight_tbody .= "<td>";
-									if ($view == "entry")  $table_flight_tbody .= sprintf("%06s",$row_entries['id']);
+									printf(":%06s:", $row_entries['id']);
+									// if ($view == "entry")  $table_flight_tbody .= sprintf("%06s",$row_entries['id']);
+									if ($view == "entry")  $table_flight_tbody .= $row_entries['id'];
 									else $table_flight_tbody .= sprintf("%06s",$row_entries['brewJudgingNumber']);
 									$table_flight_tbody .= "</td>";
 									$table_flight_tbody .= "<td>";
