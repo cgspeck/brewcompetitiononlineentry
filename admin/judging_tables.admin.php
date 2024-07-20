@@ -688,7 +688,6 @@ $(document).ready(function(){
                     <li>Non-received entries' flight designations will be reset to 1 (default) should any be marked as received after switching to Competition Mode. Flight positions and associated rounds should be reviewed prior to judging.</li>
                     <li>If there are no entries marked as received for a particular sub-style, the sub-style will be removed from the table's styles list.</li>
                     <li>If there are no entries marked as received for all sub-styles defined for a table, that table will be deleted.</li>
-                    <li>Judges and stewards that now have entries at a table where they are assigned will be un-assigned from that table as a failsafe.</li>
                 </ul>
             </div>
             <div class="modal-footer">
