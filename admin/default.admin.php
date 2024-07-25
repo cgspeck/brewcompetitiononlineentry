@@ -13,6 +13,8 @@ if ((!isset($_SESSION['loginUsername'])) || ((isset($_SESSION['loginUsername']))
     exit();
 }
 
+include(WESTGATE."utils.php");
+
 $server_environ_0 = "<p><strong>Reporting an issue?</strong> Here's your server environment information:</p>";
 $server_environ_1 = "<ul>";
 $server_environ_3 = "<ul class=\"list-inline\">";
@@ -1190,44 +1192,11 @@ if ((isset($_SESSION['update_summary'])) && (!empty($_SESSION['update_summary'])
                             <?php if ($_SESSION['jPrefsTablePlanning'] == 0) { ?>
                             <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-12 small">
                                 <strong>Pullsheets</strong>
-                                <p>Right-click "All By Tables - Entry Numbers" & open in a new tab.</p>
-                                <strong>Copy and paste result into LibreOffice Writer and sort tables by entry number</strong>
                             </div>
                             <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-12 small">
                                 <ul class="list-unstyled">
-                                    <li><a data-fancybox data-type="iframe" data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=pullsheets&amp;go=judging_tables&amp;view=entry&amp;id=default" data-toggle="tooltip" data-placement="top" title="Print All Table Pullsheets with Entry Numbers">All By Table - Entry Numbers</a></li>
+                                    <li><a target="_blank" href="<?php echo(wg_make_link("pullsheets")); ?>">Westgate Pull Sheets</a></li>
                                 </ul>
-                                <div class="dropdown bcoem-admin-dashboard-select">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="pullsheetMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Entry Numbers for Table... <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="pullsheetMenu3">
-                                        <?php echo table_choose("pullsheets","judging_tables",$action,$filter,"entry","includes/output.inc.php","thickbox"); ?>
-                                    </ul>
-                                </div>
-                                <div class="dropdown bcoem-admin-dashboard-select">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="pullsheetMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Entry Numbers for Session... <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                        <?php if (!empty($ps_loc_entry)) echo $ps_loc_entry; ?>
-                                    </ul>
-                                </div>
-                                <ul class="list-unstyled">
-                                    <li><a data-fancybox data-type="iframe" data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=pullsheets&amp;go=judging_tables&amp;id=default" data-toggle="tooltip" data-placement="top" title="Print All Table Pullsheets with Judging Numbers">All By Table - Judging Numbers</a></li>
-                                </ul>
-                                <div class="dropdown bcoem-admin-dashboard-select">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="pullsheetMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Judging Numbers for Table... <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="pullsheetnMenu4">
-                                        <?php echo table_choose("pullsheets","judging_tables",$action,$filter,$view,"includes/output.inc.php","thickbox"); ?>
-                                    </ul>
-                                </div>
-                                <div class="dropdown bcoem-admin-dashboard-select">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="pullsheetMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Judging Numbers for Session...<span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="pullsheetMenu2">
-                                        <?php if (!empty($ps_loc_judging)) echo $ps_loc_judging; ?>
-                                    </ul>
-                                </div>
                             </div>
                             <?php } ?>
                         </div><!-- ./row -->
@@ -1664,138 +1633,32 @@ if ((isset($_SESSION['update_summary'])) && (!empty($_SESSION['update_summary'])
                         <?php if ($totalRows_tables > 0) { ?>
                         <div class="row">
                             <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-12 small">
-                                <strong>BOS Results</strong>
+                                <strong>All Results</strong>
                             </div>
                             <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-12 small">
                                 <ul class="list-inline">
-                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores_bos&amp;action=print&amp;tb=bos&amp;view=default" title="BOS Round(s) Results Report">Print</a></li>
-                                    <li><a target="_blank" href="<?php echo $base_url; ?>includes/output.inc.php?section=export-results&amp;go=judging_scores_bos&amp;action=download&amp;filter=default&amp;view=pdf">PDF</a></li>
-                                    <li><a target="_blank" href="<?php echo $base_url; ?>includes/output.inc.php?section=export-results&amp;go=judging_scores_bos&amp;action=download&amp;filter=default&amp;view=html">HTML</a></li>
-                                </ul>
-                            </div>
-                        </div><!-- ./row -->
-                        <?php if (($_SESSION['prefsShowBestBrewer'] != 0) || ($_SESSION['prefsShowBestClub'] != 0)) { ?>
-                        <div class="row">
-                            <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-12 small">
-                                <strong>Best Brewer and/or Club</strong>
-                            </div>
-                            <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-12 small">
-                                <ul class="list-inline">
-                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=best&amp;action=print&amp;tb=bos&amp;view=default" title="Best Brewer and/or Club Results Report">Print</a></li>
-                                </ul>
-                            </div>
-                        </div><!-- ./row -->
-                        <?php } ?>
-                        <div class="row">
-                            <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-12 small">
-                                <strong>Results (<?php echo $results_method[$_SESSION['prefsWinnerMethod']]; ?>)</strong>
-                            </div>
-                            <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-12 small">
-                            <?php if ($_SESSION['prefsWinnerMethod'] == 0) { ?>
-                                <div class="dropdown bcoem-admin-dashboard-select">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">All with Scores...<span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
-                                        <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=default">By Table Number</a></li>
-                                        <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=default&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
-                                        <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=default&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
-                                    </ul>
-                                </div>
-                                <div class="dropdown bcoem-admin-dashboard-select">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Winners Only with Scores...<span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
-                                        <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=winners">By Table Number</a></li>
-                                        <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=winners&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
-                                        <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=winners&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
-                                    </ul>
-                                </div>
-                                <div class="dropdown bcoem-admin-dashboard-select">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">All without Scores...<span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
-                                        <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=default">By Table Number</a></li>
-                                        <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=default&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
-                                        <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=default&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
-                                    </ul>
-                                </div>
-                                <div class="dropdown bcoem-admin-dashboard-select">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Winners Only without Scores...<span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
-                                        <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=winners">By Table Number</a></li>
-                                        <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=winners&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
-                                        <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=winners&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
-                                    </ul>
-                                </div>
-                            <?php } else { ?>
-                                <ul class="list-inline">
-                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=default" data-toggle="tooltip" data-placement="top" title="Print all entry results with scores listed">All with Scores</a></li>
-                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=winners" data-toggle="tooltip" data-placement="top" title="Print winners only results with scores listed">Winners Only with Scores</a></li>
-                                </ul>
-                                <ul class="list-inline">
-                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=default" data-toggle="tooltip" data-placement="top" title="Print all entry results without scores listed">All without Scores</a></li>
-                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=winners" data-toggle="tooltip" data-placement="top" title="Print winners only results without scores listed">Winners Only without Scores</a></li>
-                                </ul>
-                            <?php } ?>
-                                <ul class="list-inline">
-                                    <li><a target="_blank" href="<?php echo $base_url; ?>includes/output.inc.php?section=export-results&amp;go=judging_scores&amp;action=default&amp;tb=none&amp;view=pdf" data-toggle="tooltip" data-placement="top" title="Download a PDF report of results - winners only without scores">PDF</a></li>
-                                    <li><a target="_blank" href="<?php echo $base_url; ?>includes/output.inc.php?section=export-results&amp;go=judging_scores&amp;action=default&amp;tb=none&amp;view=html" data-toggle="tooltip" data-placement="top" title="Download a HTML report of results to copy/paste into another website - winners only without scores">HTML</a></li>
+                                    <li><a target="_blank" href="<?php echo(wg_make_link("all_results")); ?>">Westgate All Results with All Details</a></li>
                                 </ul>
                             </div>
                         </div><!-- ./row -->
                         <div class="row">
                             <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-12 small">
-                                <strong>All Results (<?php echo $results_method[$_SESSION['prefsWinnerMethod']]; ?> - Single Report)</strong>
+                                <strong>for presentation</strong>
                             </div>
                             <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-12 small">
-                                <?php if ($_SESSION['prefsWinnerMethod'] == 0) { ?>
-                                    <div class="dropdown bcoem-admin-dashboard-select">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">All with Scores...<span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
-                                            <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=default">By Table Number</a></li>
-                                            <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=default&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
-                                            <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=default&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="dropdown bcoem-admin-dashboard-select">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Winners Only with Scores...<span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
-                                            <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=winners">By Table Number</a></li>
-                                            <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=winners&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
-                                            <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=winners&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="dropdown bcoem-admin-dashboard-select">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">All without Scores...<span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
-                                            <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;view=default">By Table Number</a></li>
-                                            <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;view=default&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
-                                            <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;view=default&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="dropdown bcoem-admin-dashboard-select">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Winners Only without Scores...<span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
-                                            <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;view=winners">By Table Number</a></li>
-                                            <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;view=winners&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
-                                            <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;view=winners&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
-                                        </ul>
-                                    </div>
-                                <?php } else { ?>
                                 <ul class="list-inline">
-                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=default" data-toggle="tooltip" data-placement="top" title="Print all entry results with scores listed">All with Scores</a></li>
-                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=winners" data-toggle="tooltip" data-placement="top" title="Print winners only results with scores listed">Winners Only with Scores</a></li>
+                                    <li><a target="_blank" href="<?php echo(wg_make_link("report_generator?presentation_mode=True")); ?>">Westgate Results (for presentation)</a></li>
                                 </ul>
+                            </div>
+                        </div><!-- ./row -->
+                        <div class="row">
+                            <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-12 small">
+                                <strong>for publication</strong>
+                            </div>
+                            <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-12 small">
                                 <ul class="list-inline">
-                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print" data-toggle="tooltip" data-placement="top" title="Print all entry results without scores listed">All without Scores</a></li>
-                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;view=winners" data-toggle="tooltip" data-placement="top" title="Print winners only results without scores listed">Winners Only without Scores</a></li>
+                                    <li><a target="_blank" href="<?php echo(wg_make_link("report_generator?presentation_mode=False")); ?>">Westgate Results  (for publication)</a></li>
                                 </ul>
-                                <?php } ?>
                             </div>
                         </div><!-- ./row -->
                         <?php } ?>
@@ -1884,6 +1747,219 @@ if ((isset($_SESSION['update_summary'])) && (!empty($_SESSION['update_summary'])
                 </div>
             </div>
             <!-- ./ Reports Panel -->
+            <!-- Deprecated Reports Panel -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion2" href="#collapseDeprecatedReports">Deprecated/Fallback Reports<span class="fa fa-file pull-right"></span></a>
+                    </h4>
+                </div>
+                <div id="collapseDeprecatedReports" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <div class="row" style="padding: 0px 0px 15px 0px;">
+                            <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <strong>Before Judging</strong>
+                            </div>
+                        </div><!-- ./row -->
+                        <?php if (($totalRows_tables > 0) && ($_SESSION['userAdminObfuscate'] == 0)) { ?>
+                            <div class="row">
+                                <?php if ($_SESSION['jPrefsTablePlanning'] == 0) { ?>
+                                    <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-12 small">
+                                        <strong>Pullsheets</strong>
+                                        <p>Right-click "All By Tables - Entry Numbers" & open in a new tab.</p>
+                                        <strong>Copy and paste result into LibreOffice Writer and sort tables by entry number</strong>
+                                    </div>
+                                    <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-12 small">
+                                        <ul class="list-unstyled">
+                                            <li><a data-fancybox data-type="iframe" data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=pullsheets&amp;go=judging_tables&amp;view=entry&amp;id=default" data-toggle="tooltip" data-placement="top" title="Print All Table Pullsheets with Entry Numbers">All By Table - Entry Numbers</a></li>
+                                        </ul>
+                                        <div class="dropdown bcoem-admin-dashboard-select">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="pullsheetMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Entry Numbers for Table... <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="pullsheetMenu3">
+                                                <?php echo table_choose("pullsheets", "judging_tables", $action, $filter, "entry", "includes/output.inc.php", "thickbox"); ?>
+                                            </ul>
+                                        </div>
+                                        <div class="dropdown bcoem-admin-dashboard-select">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="pullsheetMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Entry Numbers for Session... <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                <?php if (!empty($ps_loc_entry)) echo $ps_loc_entry; ?>
+                                            </ul>
+                                        </div>
+                                        <ul class="list-unstyled">
+                                            <li><a data-fancybox data-type="iframe" data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=pullsheets&amp;go=judging_tables&amp;id=default" data-toggle="tooltip" data-placement="top" title="Print All Table Pullsheets with Judging Numbers">All By Table - Judging Numbers</a></li>
+                                        </ul>
+                                        <div class="dropdown bcoem-admin-dashboard-select">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="pullsheetMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Judging Numbers for Table... <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="pullsheetnMenu4">
+                                                <?php echo table_choose("pullsheets", "judging_tables", $action, $filter, $view, "includes/output.inc.php", "thickbox"); ?>
+                                            </ul>
+                                        </div>
+                                        <div class="dropdown bcoem-admin-dashboard-select">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="pullsheetMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Judging Numbers for Session...<span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="pullsheetMenu2">
+                                                <?php if (!empty($ps_loc_judging)) echo $ps_loc_judging; ?>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div><!-- ./row -->
+                        <?php } // end if (($totalRows_tables > 0) && ($_SESSION['userAdminObfuscate'] == 0)) 
+                        ?>
+                        <?php if ($judging_started) { ?>
+                            <!-- After Judging -->
+                            <div class="row" style="padding: 25px 0px 15px 0px;">
+                                <div class="col col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <hr style="margin-bottom: 10px;">
+                                    <strong>After Judging</strong>
+                                </div>
+                            </div><!-- ./row -->
+                            <?php if ($totalRows_tables > 0) { ?>
+                                <div class="row">
+                                    <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-12 small">
+                                        <strong>BOS Results</strong>
+                                    </div>
+                                    <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-12 small">
+                                        <ul class="list-inline">
+                                            <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores_bos&amp;action=print&amp;tb=bos&amp;view=default" title="BOS Round(s) Results Report">Print</a></li>
+                                            <li><a target="_blank" href="<?php echo $base_url; ?>includes/output.inc.php?section=export-results&amp;go=judging_scores_bos&amp;action=download&amp;filter=default&amp;view=pdf">PDF</a></li>
+                                            <li><a target="_blank" href="<?php echo $base_url; ?>includes/output.inc.php?section=export-results&amp;go=judging_scores_bos&amp;action=download&amp;filter=default&amp;view=html">HTML</a></li>
+                                        </ul>
+                                    </div>
+                                </div><!-- ./row -->
+                                <?php if (($_SESSION['prefsShowBestBrewer'] != 0) || ($_SESSION['prefsShowBestClub'] != 0)) { ?>
+                                    <div class="row">
+                                        <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-12 small">
+                                            <strong>Best Brewer and/or Club</strong>
+                                        </div>
+                                        <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-12 small">
+                                            <ul class="list-inline">
+                                                <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=best&amp;action=print&amp;tb=bos&amp;view=default" title="Best Brewer and/or Club Results Report">Print</a></li>
+                                            </ul>
+                                        </div>
+                                    </div><!-- ./row -->
+                                <?php } ?>
+                                <div class="row">
+                                    <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-12 small">
+                                        <strong>Results (<?php echo $results_method[$_SESSION['prefsWinnerMethod']]; ?>)</strong>
+                                    </div>
+                                    <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-12 small">
+                                        <?php if ($_SESSION['prefsWinnerMethod'] == 0) { ?>
+                                            <div class="dropdown bcoem-admin-dashboard-select">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">All with Scores...<span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=default">By Table Number</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=default&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=default&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="dropdown bcoem-admin-dashboard-select">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Winners Only with Scores...<span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=winners">By Table Number</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=winners&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=winners&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="dropdown bcoem-admin-dashboard-select">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">All without Scores...<span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=default">By Table Number</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=default&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=default&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="dropdown bcoem-admin-dashboard-select">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Winners Only without Scores...<span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=winners">By Table Number</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=winners&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=winners&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
+                                                </ul>
+                                            </div>
+                                        <?php } else { ?>
+                                            <ul class="list-inline">
+                                                <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=default" data-toggle="tooltip" data-placement="top" title="Print all entry results with scores listed">All with Scores</a></li>
+                                                <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;tb=scores&amp;view=winners" data-toggle="tooltip" data-placement="top" title="Print winners only results with scores listed">Winners Only with Scores</a></li>
+                                            </ul>
+                                            <ul class="list-inline">
+                                                <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=default" data-toggle="tooltip" data-placement="top" title="Print all entry results without scores listed">All without Scores</a></li>
+                                                <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=judging_scores&amp;action=print&amp;view=winners" data-toggle="tooltip" data-placement="top" title="Print winners only results without scores listed">Winners Only without Scores</a></li>
+                                            </ul>
+                                        <?php } ?>
+                                        <ul class="list-inline">
+                                            <li><a target="_blank" href="<?php echo $base_url; ?>includes/output.inc.php?section=export-results&amp;go=judging_scores&amp;action=default&amp;tb=none&amp;view=pdf" data-toggle="tooltip" data-placement="top" title="Download a PDF report of results - winners only without scores">PDF</a></li>
+                                            <li><a target="_blank" href="<?php echo $base_url; ?>includes/output.inc.php?section=export-results&amp;go=judging_scores&amp;action=default&amp;tb=none&amp;view=html" data-toggle="tooltip" data-placement="top" title="Download a HTML report of results to copy/paste into another website - winners only without scores">HTML</a></li>
+                                        </ul>
+                                    </div>
+                                </div><!-- ./row -->
+                                <div class="row">
+                                    <div class="col col-lg-4 col-md-4 col-sm-4 col-xs-12 small">
+                                        <strong>All Results (<?php echo $results_method[$_SESSION['prefsWinnerMethod']]; ?> - Single Report)</strong>
+                                    </div>
+                                    <div class="col col-lg-8 col-md-8 col-sm-8 col-xs-12 small">
+                                        <?php if ($_SESSION['prefsWinnerMethod'] == 0) { ?>
+                                            <div class="dropdown bcoem-admin-dashboard-select">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">All with Scores...<span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=default">By Table Number</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=default&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=default&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="dropdown bcoem-admin-dashboard-select">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Winners Only with Scores...<span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=winners">By Table Number</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=winners&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=winners&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="dropdown bcoem-admin-dashboard-select">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">All without Scores...<span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;view=default">By Table Number</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;view=default&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;view=default&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="dropdown bcoem-admin-dashboard-select">
+                                                <button class="btn btn-default dropdown-toggle" type="button" id="bos-pullsheet-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Winners Only without Scores...<span class="caret"></span>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="bos-pullsheet-menu">
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;view=winners">By Table Number</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;view=winners&amp;psort=table-entry-count-asc">By Table/Medal Group Entry Count - Ascending</a></li>
+                                                    <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;view=winners&amp;psort=table-entry-count-desc">By Table/Medal Group Entry Count - Descending</a></li>
+                                                </ul>
+                                            </div>
+                                        <?php } else { ?>
+                                            <ul class="list-inline">
+                                                <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=default" data-toggle="tooltip" data-placement="top" title="Print all entry results with scores listed">All with Scores</a></li>
+                                                <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;tb=scores&amp;view=winners" data-toggle="tooltip" data-placement="top" title="Print winners only results with scores listed">Winners Only with Scores</a></li>
+                                            </ul>
+                                            <ul class="list-inline">
+                                                <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print" data-toggle="tooltip" data-placement="top" title="Print all entry results without scores listed">All without Scores</a></li>
+                                                <li><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=results&amp;go=all&amp;action=print&amp;view=winners" data-toggle="tooltip" data-placement="top" title="Print winners only results without scores listed">Winners Only without Scores</a></li>
+                                            </ul>
+                                        <?php } ?>
+                                    </div>
+                                </div><!-- ./row -->
+                            <?php } ?>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+            <!-- ./ Deprecated Reports Panel -->
             <!-- Data Exports Panel -->
             <div class="panel panel-default">
                 <div class="panel-heading">

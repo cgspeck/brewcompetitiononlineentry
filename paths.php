@@ -34,6 +34,7 @@ define('USER_TEMP',ROOT.'user_temp'.DIRECTORY_SEPARATOR);
 define('LANG',ROOT.'lang'.DIRECTORY_SEPARATOR);
 define('DEBUGGING',ROOT.'includes'.DIRECTORY_SEPARATOR.'debug'.DIRECTORY_SEPARATOR);
 define('AJAX',ROOT.'ajax'.DIRECTORY_SEPARATOR);
+define('WESTGATE',ROOT.'westgate'.DIRECTORY_SEPARATOR);
 
 /**
  * --------------------------------------------------------

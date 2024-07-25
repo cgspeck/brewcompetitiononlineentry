@@ -215,5 +215,7 @@ $base_url .= $_SERVER['SERVER_NAME'].$sub_directory.'/';
 
 $server_root = $_SERVER['DOCUMENT_ROOT'];
 //$server_root = $_SERVER['SUBDOMAIN_DOCUMENT_ROOT'];
-
+$wg_score_app_url = 'http://127.0.0.1:5000/';
+$wg_score_app_topt_secret_key = 'base32-secret-key-here';
+$wg_score_app_comp_env = 'test';
 ?>
