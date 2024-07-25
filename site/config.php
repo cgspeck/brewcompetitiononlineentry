@@ -1,4 +1,9 @@
 <?php
+
+if (file_exists(CONFIG."config.local.php")) {
+    require(CONFIG."config.local.php");
+    return;
+}
 /**
  * Module:        config.php
  * Description:   This module houses configuration variables for DB connection, etc.
