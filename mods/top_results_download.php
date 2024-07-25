@@ -18,8 +18,50 @@ BCOE&M uses Font Awesome v4.7 icons throughout the core code. To use Font Awesom
 - Font Awesome icon list:     https://fontawesome.com/v4.7/icons
 - Font Awesome icon examples: https://fontawesome.com/v4.7/examples/
 -->
+<?php 
+
+$dirPath = realpath(__DIR__."/../public/");
+
+$allFiles = scandir($dirPath);
+$arrResultFiles = array();
+$resultsPrefix = "westgate-stout-extravaganza-results-";
+
+foreach ($allFiles as $file) {
+  // look for files in form "westgate-stout-extravaganza-results-YYYY.pdf"
+  $filePath = $dirPath . '/' . $file;
+  if (is_file($filePath) && substr($file, 0, strlen($resultsPrefix)) === $resultsPrefix) {
+    // this apparently pushes an item onto a stack?
+    // https://www.php.net/manual/en/function.array-push.php
+    $arrResultFiles[] = $file;
+  }
+}
+
+if (count($arrResultFiles)==0) {
+  return;
+}
+
+sort($arrResultFiles);
+$arrResultFiles = array_reverse($arrResultFiles);
+
+function getYear(string $fileStr): string {
+  global $resultsPrefix;
+  // explode(string $separator, string $string, int $limit = PHP_INT_MAX): array
+  $exp1 = explode($resultsPrefix, $fileStr);
+  $exp2 = explode(".", $exp1[1]);
+  return $exp2[0];
+}
+
+function getLink(string $fileStr): string {
+  return "public/" . $fileStr;
+}
+
+?>
 <div class="jumbotron">
-  <h2>2024 Full Results List</h2>
-  <p>Click the button below to download the full results list as a PDF.</p>
-  <p><a role="button" class="btn btn-info btn-lg btn-block" href="https://comps.westgatebrewers.org/public/stout-extravaganza-2024-full-result-list.pdf"><span class="fa fa-download"></span>Download</a></p>
+  <h2>Results List</h2>
+  <p>Click a below to download an available full results list as a PDF.</p>
+  <ul>
+  <?php foreach ($arrResultFiles as &$resultFile) { ?>
+    <li><a href=<?php print(getLink($resultFile)); ?>  > <?php print(getYear($resultFile)); ?> Results</a></li>
+  <?php } ?>
+  </ul>
 </div>
