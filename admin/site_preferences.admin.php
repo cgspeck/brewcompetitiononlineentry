@@ -1198,6 +1198,7 @@ $(document).ready(function(){
 
 <?php
 
+/*
 if (strpos($section, "step") === FALSE) {
     $st_count = 0;
     $st_arr = array();
@@ -1215,7 +1216,7 @@ if (strpos($section, "step") === FALSE) {
 <?php 
     } while ($row_style_type = mysqli_fetch_assoc($style_type)); 
 }
-
+*/
 ?>
 
 <input name="style_type_entry_limits" type="hidden" value="<?php echo implode(",", $st_arr); ?>">
