@@ -178,7 +178,7 @@ if ($filter == "staff") {
 		if (!empty($row_assignments['assignRoles'])) $role .= str_replace($role_replace1,$role_replace2,$row_assignments['assignRoles']);
 	?>
     <tr>
-    	<td nowrap><?php echo sprintf("<strong>%s, %s</strong><br><small>%s</small>", $judge_info[1], $judge_info[0], $judge_info[6]); ?></td>
+		<td nowrap><?php echo sprintf("<strong>%s, %s</strong>", $judge_info[1], $judge_info[0]); ?></td>
     	<?php if ($filter == "J") { ?>
         <td nowrap><?php if (!empty($role)) echo $role; ?></td>
 		<?php } ?>
