@@ -8,6 +8,8 @@ if ((!isset($_SESSION['loginUsername'])) || ((isset($_SESSION['loginUsername']))
     exit();
 }
 
+include(WESTGATE."utils.php");
+
 include (DB.'styles.db.php');
 include (DB.'admin_judging_tables.db.php');
 
@@ -814,7 +816,7 @@ $(document).ready(function(){
         <ul class="dropdown-menu">
             <li class="small"><a href="#" class="hide-loader" onclick="window.print()">Tables List</a></li>
             <?php if ($_SESSION['userAdminObfuscate'] == 0) { ?>
-    		<li class="small"><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=pullsheets&amp;go=judging_tables&amp;id=default">Pullsheets by Table</a></li>
+            <li class="small"><a target="_blank" href="<?php echo(wg_make_link("pullsheets")); ?>">Westgate Pull Sheets</a></li>
             <?php } ?>
             <li class="small"><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=assignments&amp;go=judging_assignments&amp;filter=judges&amp;view=name" title="Print Judge Assignments by Name">Judge Assignments By Last Name</a></li>
 			<li class="small"><a data-fancybox data-type="iframe" class="modal-window-link hide-loader" href="<?php echo $base_url; ?>includes/output.inc.php?section=assignments&amp;go=judging_assignments&amp;filter=judges&amp;view=table" title="Print Judge Assignments by Table">Judge Assignments By Table</a></li>
