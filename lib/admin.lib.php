@@ -1181,6 +1181,39 @@ function entry_conflict($bid,$table_styles) {
 	return FALSE;
 }
 
+function actual_entry_conflict($bid,$table_styles) {
+	
+	require(CONFIG.'config.php');
+	mysqli_select_db($connection,$database);
+
+	$d = 0;
+
+	if (!empty($table_styles)) {
+
+		$b = explode(",",$table_styles);
+
+		foreach ($b as $style) {
+			$query_style = sprintf("SELECT brewStyleGroup,brewStyleNum FROM %s WHERE id='%s'", $prefix."styles", $style);
+			$style = mysqli_query($connection,$query_style) or die (mysqli_error($connection));
+			$row_style = mysqli_fetch_assoc($style);
+
+			if (($row_style) && ($bid != "999999999")) {
+				$query_entries = sprintf("SELECT COUNT(*) as 'count' FROM %s WHERE brewBrewerID='%s' AND brewCategorySort='%s' AND brewSubCategory='%s'", $prefix."brewing", $bid, $row_style['brewStyleGroup'],$row_style['brewStyleNum']);
+				if ($_SESSION['jPrefsTablePlanning'] == 0) $query_entries .= " AND brewReceived='1'";
+				$entries = mysqli_query($connection,$query_entries) or die (mysqli_error($connection));
+				$row_entries = mysqli_fetch_assoc($entries);
+
+				if (($row_entries) && ($row_entries['count'] > 0)) $d += 1;
+
+			}
+
+		}
+
+	}
+
+	return $d > 0;
+}
+
 function unassign($bid,$location,$round,$tid) {
 	
 	require(CONFIG.'config.php');
@@ -1213,6 +1246,7 @@ function assign_to_table($tid,$bid,$filter,$total_flights,$round,$location,$tabl
 
 	$r = "";
 	$disabled = "";
+	$actual_entry_conflict_msg = actual_entry_conflict($bid,$table_styles) ? " (<strong style='color: ##f30808'>Entry Conflict</strong>)" : "";
 	// if (entry_conflict($bid,$table_styles)) $disabled = "disabled"; 
 	// if ($ind_aff_flag) $disabled = "disabled"; 
 	
@@ -1264,7 +1298,7 @@ function assign_to_table($tid,$bid,$filter,$total_flights,$round,$location,$tabl
 		$r .= '<div class="form-group">';
 		$r .= '<div class="input-group">';
 	    $r .= '<label class="radio-inline">';
-	    $r .= '<input type="radio" name="assignRound'.$random.'" value="'.$round.'" '.$selected.' '.$disabled.' /> Assign to this Table/Round';
+	    $r .= '<input type="radio" name="assignRound'.$random.'" value="'.$round.'" '.$selected.' '.$disabled.' /> Assign to this Table/Round' . $actual_entry_conflict_msg;
 	    $r .= '</label>';
 	    $r .= '<label class="radio-inline">';
 	    $r .= '<input type="radio" name="assignRound'.$random.'" value="0" '.$default.' /> Do Not Assign to This Table';
